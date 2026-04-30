@@ -792,6 +792,7 @@
   }
   .featured-card-h {
     background: var(--bg-2);
+    cursor: pointer;
     border: 3px solid var(--yal-orange);
     border-radius: 18px;
     padding: 18px 16px 16px;
@@ -1092,22 +1093,22 @@
     <h2 class="panel-title" data-i18n="featuredTitle">📌 Featured quests</h2>
     <p class="panel-sub" data-i18n="featuredSub">Try these activities with your group — no AI background needed.</p>
     <div class="featured-grid">
-      <div class="featured-card-h">
+      <div class="featured-card-h" data-phase="2" data-node="4">
         <div class="featured-icon-h">🎭</div>
         <div class="featured-title-h" data-i18n="featured1Title">Bias Hunters</div>
         <p class="featured-desc-h" data-i18n="featured1Desc">Ask 3 different AI chatbots the same question about a sensitive topic. Compare their answers and list any biases you spot.</p>
       </div>
-      <div class="featured-card-h">
+      <div class="featured-card-h" data-phase="3" data-node="3">
         <div class="featured-icon-h">✏️</div>
         <div class="featured-title-h" data-i18n="featured2Title">Master the Prompt</div>
         <p class="featured-desc-h" data-i18n="featured2Desc">Pick one homework question. Write it 3 different ways. Compare which prompt gives the clearest, most useful answer.</p>
       </div>
-      <div class="featured-card-h">
+      <div class="featured-card-h" data-phase="2" data-node="1">
         <div class="featured-icon-h">🃏</div>
         <div class="featured-title-h" data-i18n="featured3Title">Plausible But Wrong</div>
         <p class="featured-desc-h" data-i18n="featured3Desc">Ask an AI 5 facts about your hometown. Fact-check each one. Note where it confidently made things up.</p>
       </div>
-      <div class="featured-card-h">
+      <div class="featured-card-h" data-phase="0" data-node="5">
         <div class="featured-icon-h">🌍</div>
         <div class="featured-title-h" data-i18n="featured4Title">The Planet Cost</div>
         <p class="featured-desc-h" data-i18n="featured4Desc">Estimate the energy used by your last 10 AI prompts. Compare with running a Google search instead.</p>
@@ -3129,7 +3130,7 @@
     let html = `
       <div class="phase-block" style="--world-bg: ${phase.worldGradient}; --world-accent: ${phase.worldAccent}; --world-accent-dark: ${phase.worldAccentDark};">
         <div class="phase-header">
-          <div class="phase-level-badge">${tr('levelWord')} ${phaseIdx + 1}<span class="phase-level-stars">${'⭐'.repeat(phaseIdx + 1)}</span></div>
+          <div class="phase-level-badge">${tr('levelWord')} ${phaseIdx + 1}<span class="phase-level-stars">${'🧪'.repeat(phaseIdx + 1)}</span></div>
           <div class="phase-world-icon">${px(phase.worldIcon)}</div>
           <div class="phase-titles">
             <div class="phase-world-name">${loc(phase.world)}</div>
@@ -3192,7 +3193,7 @@
               <div class="island"
                    style="--world-bg: ${phase.worldGradient}; --world-accent: ${phase.worldAccent}; --world-accent-dark: ${phase.worldAccentDark};"
                    data-world="${idx}">
-                <div class="island-num">${tr('levelWord')} ${idx + 1}<span class="island-num-stars">${'⭐'.repeat(idx + 1)}</span></div>
+                <div class="island-num">${tr('levelWord')} ${idx + 1}<span class="island-num-stars">${'🧪'.repeat(idx + 1)}</span></div>
                 <div class="island-icon">${px(phase.worldIcon)}</div>
                 <div class="island-name">${loc(phase.world)}</div>
                 <div class="island-chapter">${loc(cleanTitle)}</div>
@@ -3367,6 +3368,17 @@
     logoHome.addEventListener('click', goHome);
     logoHome.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goHome(); }});
   }
+
+  // featured cards click → open the matching skill modal
+  document.querySelectorAll('.featured-card-h').forEach(card => {
+    card.addEventListener('click', () => {
+      const p = parseInt(card.dataset.phase);
+      const n = parseInt(card.dataset.node);
+      if (!isNaN(p) && !isNaN(n) && phases[p] && phases[p].nodes[n]) {
+        openModal(phases[p], phases[p].nodes[n]);
+      }
+    });
+  });
 
   // initial render
   setLang(currentLang);
