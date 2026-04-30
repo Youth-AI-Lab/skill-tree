@@ -455,6 +455,7 @@
   .xp-text strong { color: var(--text); font-weight: 700; }
   .team-badges {
     display: flex; gap: 8px;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: 12px;
     padding-top: 10px;
@@ -987,7 +988,7 @@
   /* ================== RESPONSIVE ================== */
   @media (max-width: 900px) {
     body { padding: 16px; }
-    .teams-grid { grid-template-columns: repeat(2, 1fr); }
+    .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .main-grid { grid-template-columns: 1fr; }
     .nodes-row.cols-4 { grid-template-columns: repeat(2, 1fr); }
     .nodes-row.cols-3 { grid-template-columns: repeat(2, 1fr); }
@@ -995,6 +996,12 @@
     .modal-quest-title { font-size: 20px; }
     .header { flex-direction: column; align-items: flex-start; gap: 8px; }
     .footer-grid { grid-template-columns: 1fr; }
+    .team-card { padding: 14px; }
+    .team-badges { gap: 4px; }
+    .team-badge { font-size: 18px; }
+  }
+  @media (max-width: 520px) {
+    .teams-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
