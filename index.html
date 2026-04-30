@@ -486,16 +486,9 @@
     gap: 20px;
   }
   .skill-tree-wrapper {
-    background-color: #2c2148;
-    background-image:
-      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(255, 255, 255, 0.07), transparent 70%),
-      radial-gradient(circle at 10% 10%, rgba(126, 217, 87, 0.12), transparent 35%),
-      radial-gradient(circle at 90% 90%, rgba(250, 137, 210, 0.12), transparent 35%);
-    border: 3px solid var(--yal-blue);
-    border-radius: 22px;
-    padding: 28px;
+    background: transparent;
+    padding: 0;
     min-height: 700px;
-    box-shadow: 0 5px 0 var(--yal-blue), 0 0 28px rgba(56, 182, 255, 0.35);
   }
   /* in map view, the world-map element provides its own styling — strip the wrapper */
   .skill-tree-wrapper.is-map-view {
@@ -823,6 +816,15 @@
     line-height: 1.5;
     font-weight: 500;
   }
+  .featured-rotation-note {
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--text-dim);
+    opacity: 0.7;
+    font-weight: 500;
+    text-align: right;
+    letter-spacing: 0.3px;
+  }
   @media (max-width: 900px) {
     .featured-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -1092,28 +1094,8 @@
   <section class="featured-panel" id="featuredPanel">
     <h2 class="panel-title" data-i18n="featuredTitle">📌 Featured quests</h2>
     <p class="panel-sub" data-i18n="featuredSub">Try these activities with your group — no AI background needed.</p>
-    <div class="featured-grid">
-      <div class="featured-card-h" data-phase="2" data-node="4">
-        <div class="featured-icon-h">🎭</div>
-        <div class="featured-title-h" data-i18n="featured1Title">Bias Hunters</div>
-        <p class="featured-desc-h" data-i18n="featured1Desc">Ask 3 different AI chatbots the same question about a sensitive topic. Compare their answers and list any biases you spot.</p>
-      </div>
-      <div class="featured-card-h" data-phase="3" data-node="3">
-        <div class="featured-icon-h">✏️</div>
-        <div class="featured-title-h" data-i18n="featured2Title">Master the Prompt</div>
-        <p class="featured-desc-h" data-i18n="featured2Desc">Pick one homework question. Write it 3 different ways. Compare which prompt gives the clearest, most useful answer.</p>
-      </div>
-      <div class="featured-card-h" data-phase="2" data-node="1">
-        <div class="featured-icon-h">🃏</div>
-        <div class="featured-title-h" data-i18n="featured3Title">Plausible But Wrong</div>
-        <p class="featured-desc-h" data-i18n="featured3Desc">Ask an AI 5 facts about your hometown. Fact-check each one. Note where it confidently made things up.</p>
-      </div>
-      <div class="featured-card-h" data-phase="0" data-node="5">
-        <div class="featured-icon-h">🌍</div>
-        <div class="featured-title-h" data-i18n="featured4Title">The Planet Cost</div>
-        <p class="featured-desc-h" data-i18n="featured4Desc">Estimate the energy used by your last 10 AI prompts. Compare with running a Google search instead.</p>
-      </div>
-    </div>
+    <div class="featured-grid" id="featuredGrid"></div>
+    <p class="featured-rotation-note" id="featuredRotationNote"></p>
   </section>
 
   <!-- ====== FOOTER ====== -->
@@ -1169,7 +1151,7 @@
   const phases = [
     {
       title: 'Level 1 · Enter the Machine',
-      world: 'Observation Bench', worldIcon: '🔭',
+      world: 'First Light', worldIcon: '🔭',
       worldGradient: 'linear-gradient(135deg, #dff5d4 0%, #c4e8ff 100%)',
       worldAccent: '#7ed957', worldAccentDark: '#3d7a1e',
       cols: 3,
@@ -1214,7 +1196,7 @@
     },
     {
       title: 'Level 2 · Crack the Mechanisms',
-      world: 'Hypothesis Bench', worldIcon: '💡',
+      world: 'The Spark', worldIcon: '💡',
       worldGradient: 'linear-gradient(135deg, #fff3c4 0%, #ffd9a8 100%)',
       worldAccent: '#f9c724', worldAccentDark: '#9a7c1e',
       cols: 4,
@@ -1255,7 +1237,7 @@
     },
     {
       title: 'Level 3 · Build',
-      world: "Maker's Bench", worldIcon: '🛠️',
+      world: 'The Forge', worldIcon: '🛠️',
       worldGradient: 'linear-gradient(135deg, #ffe0c8 0%, #ffc8a8 100%)',
       worldAccent: '#f37030', worldAccentDark: '#a83e15',
       cols: 4,
@@ -1308,7 +1290,7 @@
     },
     {
       title: 'Level 4 · Deploy',
-      world: 'Trial Bench', worldIcon: '🚀',
+      world: 'The Crucible', worldIcon: '🚀',
       worldGradient: 'linear-gradient(135deg, #d4ecff 0%, #b8e0ff 100%)',
       worldAccent: '#38b6ff', worldAccentDark: '#1e3a8a',
       cols: 4,
@@ -1361,7 +1343,7 @@
     },
     {
       title: 'Level 5 · Step Back',
-      world: 'Reflection Bench', worldIcon: '🪞',
+      world: 'The Mirror', worldIcon: '🪞',
       worldGradient: 'linear-gradient(135deg, #ffdcef 0%, #ffd0e3 100%)',
       worldAccent: '#fa89d2', worldAccentDark: '#9b2566',
       cols: 4,
@@ -1446,7 +1428,7 @@
     },
     {
       title: 'Level 6 · Share',
-      world: 'Outreach Bench', worldIcon: '📣',
+      world: 'The Signal', worldIcon: '📣',
       worldGradient: 'linear-gradient(135deg, #ede0ff 0%, #f5d4ff 100%)',
       worldAccent: '#9d4edd', worldAccentDark: '#5b2890',
       cols: 4,
@@ -1496,6 +1478,132 @@
   ];
 
   /* =========================================================
+     FEATURED SKILLS — auto-rotate every 3 weeks
+     Add new entries to FEATURED_POOL to grow the rotation.
+     ========================================================= */
+  const FEATURED_CYCLE_DAYS = 21;
+  const FEATURED_CYCLE_START = new Date('2026-01-05T00:00:00Z'); // Monday anchor
+
+  const FEATURED_POOL = [
+    { phase: 2, node: 4, desc: {
+        en: 'Ask 3 different chatbots the same question on a sensitive topic. Compare their answers and list every bias you spot.',
+        fr: "Posez la même question délicate à 3 chatbots différents. Comparez leurs réponses et listez les biais que vous repérez.",
+        nl: 'Stel 3 verschillende chatbots dezelfde vraag over een gevoelig onderwerp. Vergelijk en noteer alle bias.',
+        it: 'Poni la stessa domanda delicata a 3 chatbot diversi. Confronta le risposte ed elenca i bias che noti.',
+        ca: 'Fes la mateixa pregunta delicada a 3 xatbots diferents. Compara les respostes i llista els biaixos.' } },
+    { phase: 3, node: 3, desc: {
+        en: 'Pick one homework question. Write the prompt 3 different ways. Compare which one gives the clearest answer.',
+        fr: 'Choisissez une question de devoir. Reformulez le prompt de 3 façons. Comparez lequel donne la réponse la plus claire.',
+        nl: 'Kies een huiswerkvraag. Schrijf de prompt op 3 verschillende manieren. Vergelijk welke het duidelijkste antwoord geeft.',
+        it: 'Scegli una domanda dei compiti. Scrivi il prompt in 3 modi diversi. Confronta quale dà la risposta più chiara.',
+        ca: "Tria una pregunta de deures. Escriu l'indicació de 3 maneres diferents. Compara quina dona la resposta més clara." } },
+    { phase: 2, node: 1, desc: {
+        en: 'Ask an AI 5 facts about your hometown. Fact-check each one. Note where it confidently invented details.',
+        fr: 'Demandez à une IA 5 faits sur votre ville. Vérifiez chacun. Notez où elle a inventé avec assurance.',
+        nl: 'Vraag een AI 5 feiten over je stad. Controleer elk feit. Noteer waar het zelfverzekerd dingen verzon.',
+        it: 'Chiedi a un\'IA 5 fatti sulla tua città. Verifica ognuno. Nota dove ha inventato con sicurezza.',
+        ca: 'Demana a una IA 5 fets sobre la teva ciutat. Comprova cadascun. Anota on s\'ha inventat coses amb seguretat.' } },
+    { phase: 0, node: 5, desc: {
+        en: 'Estimate the energy used by your last 10 AI prompts. Compare with running 10 Google searches.',
+        fr: "Estimez l'énergie consommée par vos 10 derniers prompts. Comparez avec 10 recherches Google.",
+        nl: 'Schat het energieverbruik van je laatste 10 AI-prompts. Vergelijk met 10 Google-zoekopdrachten.',
+        it: "Stima l'energia dei tuoi ultimi 10 prompt. Confrontala con 10 ricerche su Google.",
+        ca: "Estima l'energia dels teus darrers 10 prompts. Compara-la amb 10 cerques de Google." } },
+    { phase: 0, node: 0, desc: {
+        en: 'Find 5 hidden AI features in your phone — keyboard, camera, voice, recommendations. Make a list.',
+        fr: 'Trouvez 5 fonctions IA cachées dans votre téléphone — clavier, caméra, voix, recommandations. Listez-les.',
+        nl: 'Vind 5 verborgen AI-functies in je telefoon — toetsenbord, camera, stem, aanbevelingen. Maak een lijst.',
+        it: 'Trova 5 funzioni IA nascoste nel tuo telefono — tastiera, fotocamera, voce, suggerimenti. Fai una lista.',
+        ca: 'Troba 5 funcions d\'IA amagades al teu mòbil — teclat, càmera, veu, recomanacions. Fes-ne una llista.' } },
+    { phase: 1, node: 1, desc: {
+        en: 'Find 5 AI-generated images online. List the giveaways — hands, shadows, weird text — that revealed them.',
+        fr: 'Trouvez 5 images générées par IA en ligne. Listez les indices — mains, ombres, texte bizarre — qui les trahissent.',
+        nl: 'Zoek 5 AI-gegenereerde beelden online. Noteer de verraders — handen, schaduwen, vreemde tekst.',
+        it: 'Trova 5 immagini generate dall\'IA online. Elenca gli indizi — mani, ombre, testi strani — che le rivelano.',
+        ca: 'Troba 5 imatges generades per IA en línia. Llista els indicis — mans, ombres, text estrany — que les delaten.' } },
+    { phase: 2, node: 3, desc: {
+        en: "Ask a chatbot about a recent news story. Verify each claim against trusted sources. Spot what it got wrong.",
+        fr: 'Interrogez un chatbot sur une actualité récente. Vérifiez chaque affirmation auprès de sources fiables. Repérez ses erreurs.',
+        nl: 'Vraag een chatbot over recent nieuws. Controleer elke bewering bij betrouwbare bronnen. Zie waar het misging.',
+        it: 'Chiedi a un chatbot di una notizia recente. Verifica ogni affermazione con fonti affidabili. Trova gli errori.',
+        ca: 'Pregunta a un xatbot sobre una notícia recent. Verifica cada afirmació amb fonts fiables. Detecta els errors.' } },
+    { phase: 3, node: 9, desc: {
+        en: 'Audit what you posted online this week. Which content could be used to train an AI? Decide what to share differently.',
+        fr: 'Auditez ce que vous avez posté cette semaine. Quel contenu pourrait entraîner une IA ? Décidez quoi partager autrement.',
+        nl: 'Bekijk wat je deze week postte. Welke content kan een AI trainen? Bepaal wat je anders gaat delen.',
+        it: 'Controlla cosa hai pubblicato questa settimana. Quali contenuti potrebbero addestrare un\'IA? Decidi cosa condividere diversamente.',
+        ca: 'Revisa el que has publicat aquesta setmana. Quin contingut podria entrenar una IA? Decideix què compartir d\'una altra manera.' } },
+    { phase: 1, node: 5, desc: {
+        en: 'Pick 3 AI-generated images. For each, figure out: who owns it? Can you use it for school? For business?',
+        fr: 'Choisissez 3 images générées par IA. Pour chacune : qui en est propriétaire ? Peut-on l\'utiliser à l\'école ? En entreprise ?',
+        nl: 'Kies 3 AI-beelden. Voor elk: wie is eigenaar? Mag je ze gebruiken voor school? Voor werk?',
+        it: 'Scegli 3 immagini generate dall\'IA. Per ognuna: chi ne è proprietario? Si può usare a scuola? Per lavoro?',
+        ca: 'Tria 3 imatges generades per IA. Per cadascuna: qui n\'és propietari? La pots fer servir a escola? A la feina?' } },
+    { phase: 4, node: 2, desc: {
+        en: 'Try a free deepfake-detection tool on a viral video. Note what it flagged — and what it missed.',
+        fr: 'Testez un outil gratuit de détection de deepfake sur une vidéo virale. Notez ce qu\'il détecte — et ce qu\'il rate.',
+        nl: 'Test een gratis deepfake-detectietool op een virale video. Noteer wat het opmerkte — en wat het miste.',
+        it: 'Prova uno strumento gratuito di rilevamento deepfake su un video virale. Nota cosa segnala — e cosa manca.',
+        ca: 'Prova una eina gratuïta de detecció de deepfakes en un vídeo viral. Anota què detecta — i què se li escapa.' } },
+    { phase: 3, node: 1, desc: {
+        en: "Explain to a friend how TikTok's recommendation algorithm works. If they're confused, your explanation needs work.",
+        fr: 'Expliquez à un·e ami·e comment fonctionne l\'algo de recommandation de TikTok. S\'il/elle ne comprend pas, votre explication doit progresser.',
+        nl: 'Leg een vriend uit hoe TikToks aanbevelingsalgoritme werkt. Snapt die het niet? Verbeter je uitleg.',
+        it: 'Spiega a un amico come funziona l\'algoritmo di TikTok. Se non capisce, la tua spiegazione va affinata.',
+        ca: 'Explica a un amic com funciona l\'algoritme de TikTok. Si no ho entén, la teva explicació necessita treball.' } },
+    { phase: 1, node: 7, desc: {
+        en: 'List 5 decisions you made today that an AI couldn\'t replace. What makes those decisions human?',
+        fr: 'Listez 5 décisions prises aujourd\'hui qu\'une IA ne pourrait pas remplacer. Qu\'est-ce qui les rend humaines ?',
+        nl: 'Noteer 5 beslissingen van vandaag die geen AI kon nemen. Wat maakt ze menselijk?',
+        it: 'Elenca 5 decisioni di oggi che un\'IA non poteva prendere. Cosa le rende umane?',
+        ca: 'Llista 5 decisions d\'avui que una IA no podria substituir. Què les fa humanes?' } },
+  ];
+
+  function getFeaturedCycle() {
+    const now = Date.now();
+    const start = FEATURED_CYCLE_START.getTime();
+    const cycleMs = FEATURED_CYCLE_DAYS * 86400000;
+    const cycleIndex = Math.max(0, Math.floor((now - start) / cycleMs));
+    const len = FEATURED_POOL.length;
+    const indices = [0, 1, 2, 3].map(i => ((cycleIndex * 4) + i) % len);
+    const nextChange = new Date(start + (cycleIndex + 1) * cycleMs);
+    return { cycleIndex, indices, nextChange };
+  }
+
+  function renderFeatured() {
+    const grid = document.getElementById('featuredGrid');
+    if (!grid) return;
+    const { indices, nextChange } = getFeaturedCycle();
+    grid.innerHTML = indices.map(idx => {
+      const item = FEATURED_POOL[idx];
+      const node = phases[item.phase] && phases[item.phase].nodes[item.node];
+      if (!node) return '';
+      const desc = (item.desc && item.desc[currentLang]) || item.desc.en;
+      return `
+        <div class="featured-card-h" data-phase="${item.phase}" data-node="${item.node}">
+          <div class="featured-icon-h">${node.icon}</div>
+          <div class="featured-title-h">${loc(node.title)}</div>
+          <p class="featured-desc-h">${desc}</p>
+        </div>
+      `;
+    }).join('');
+    grid.querySelectorAll('.featured-card-h').forEach(card => {
+      card.addEventListener('click', () => {
+        const p = parseInt(card.dataset.phase);
+        const n = parseInt(card.dataset.node);
+        if (!isNaN(p) && !isNaN(n) && phases[p] && phases[p].nodes[n]) {
+          openModal(phases[p], phases[p].nodes[n]);
+        }
+      });
+    });
+    const note = document.getElementById('featuredRotationNote');
+    if (note) {
+      const dateStr = nextChange.toLocaleDateString(currentLang, { day: 'numeric', month: 'long', year: 'numeric' });
+      note.textContent = tr('featuredRotation').replace('{date}', dateStr);
+    }
+  }
+
+  /* =========================================================
      RENDER
      ========================================================= */
 
@@ -1516,6 +1624,7 @@
       legendTip: '💡 Click any skill for the official DigComp 3.0 description',
       featuredTitle: '📌 Featured skills',
       featuredSub: 'Try these skills with your group — no AI background needed.',
+      featuredRotation: 'Rotates every 3 weeks · next change on {date}',
       backToMap: '← Back to bench map',
       questsCount: 'skills',
       skillsAcquired: 'Skills validated',
@@ -1548,6 +1657,7 @@
       legendTip: '💡 Klik op een vaardigheid voor de officiële DigComp 3.0-beschrijving',
       featuredTitle: '📌 Uitgelichte vaardigheden',
       featuredSub: 'Probeer deze vaardigheden met je groep — geen AI-kennis nodig.',
+      featuredRotation: 'Wisselt elke 3 weken · volgende wijziging op {date}',
       backToMap: '← Terug naar de werkbankkaart',
       questsCount: 'vaardigheden',
       skillsAcquired: 'Gevalideerde vaardigheden',
@@ -1580,6 +1690,7 @@
       legendTip: '💡 Clique sur une compétence pour voir la description officielle DigComp 3.0',
       featuredTitle: '📌 Compétences en vedette',
       featuredSub: 'Essaie ces compétences avec ton groupe — pas besoin de connaître l’IA.',
+      featuredRotation: 'Renouvelée toutes les 3 semaines · prochain changement le {date}',
       backToMap: '← Retour à la carte des paillasses',
       questsCount: 'compétences',
       skillsAcquired: 'Compétences validées',
@@ -1612,6 +1723,7 @@
       legendTip: '💡 Clicca una competenza per la descrizione ufficiale DigComp 3.0',
       featuredTitle: '📌 Competenze in evidenza',
       featuredSub: 'Prova queste competenze con il tuo gruppo — non servono conoscenze di IA.',
+      featuredRotation: 'Si rinnova ogni 3 settimane · prossimo cambio il {date}',
       backToMap: '← Torna alla mappa dei banconi',
       questsCount: 'competenze',
       skillsAcquired: 'Competenze validate',
@@ -1644,6 +1756,7 @@
       legendTip: '💡 Clica una competència per veure la descripció oficial DigComp 3.0',
       featuredTitle: '📌 Competències destacades',
       featuredSub: 'Prova aquestes competències amb el teu grup — no cal saber d’IA.',
+      featuredRotation: 'Es renova cada 3 setmanes · pròxim canvi el {date}',
       backToMap: '← Torna al mapa de les bancades',
       questsCount: 'skills',
       skillsAcquired: 'Competències validades',
@@ -1701,34 +1814,13 @@
       'Launch Pad': 'Lanceerplatform',
       'Reflection Grove': 'Bezinningsbos',
       'Beacon Tower': 'Vuurtoren',
-      /* New bench names (paillasses) */
-      'Observation Bench': "Bancada d'observació",
-      'Hypothesis Bench': "Bancada d'hipòtesis",
-      "Maker's Bench": 'Bancada del constructor',
-      'Trial Bench': 'Bancada de proves',
-      'Reflection Bench': 'Bancada de reflexió',
-      'Outreach Bench': 'Bancada de difusió',
-      /* New bench names (paillasses) */
-      'Observation Bench': 'Bancone di osservazione',
-      'Hypothesis Bench': 'Bancone delle ipotesi',
-      "Maker's Bench": 'Bancone del costruttore',
-      'Trial Bench': 'Bancone di prova',
-      'Reflection Bench': 'Bancone di riflessione',
-      'Outreach Bench': 'Bancone di diffusione',
-      /* New bench names (paillasses) */
-      'Observation Bench': 'Observatiewerkbank',
-      'Hypothesis Bench': 'Hypothesewerkbank',
-      "Maker's Bench": "Makerswerkbank",
-      'Trial Bench': 'Testwerkbank',
-      'Reflection Bench': 'Reflectiewerkbank',
-      'Outreach Bench': 'Communicatiewerkbank',
-      /* New bench names (paillasses) */
-      'Observation Bench': "Paillasse d'observation",
-      'Hypothesis Bench': "Paillasse d'hypothèses",
-      "Maker's Bench": 'Paillasse de fabrication',
-      'Trial Bench': "Paillasse d'essais",
-      'Reflection Bench': 'Paillasse de réflexion',
-      'Outreach Bench': 'Paillasse de diffusion',
+      /* Bench names */
+      'First Light': 'Eerste Licht',
+      'The Spark': 'De Vonk',
+      'The Forge': 'De Smederij',
+      'The Crucible': 'De Smeltkroes',
+      'The Mirror': 'De Spiegel',
+      'The Signal': 'Het Signaal',
       'Enter the Machine': 'De Machine In',
       'Crack the Mechanisms': 'Ontrafel de Mechanismen',
       'Build': 'Bouwen',
@@ -2033,6 +2125,13 @@
       'Launch Pad': 'Pas de Tir',
       'Reflection Grove': 'Bois de la Réflexion',
       'Beacon Tower': 'Tour du Phare',
+      /* Bench names */
+      'First Light': 'Première Lumière',
+      'The Spark': "L'Étincelle",
+      'The Forge': 'La Forge',
+      'The Crucible': 'Le Creuset',
+      'The Mirror': 'Le Miroir',
+      'The Signal': 'Le Signal',
       'Enter the Machine': 'Entrer dans la machine',
       'Crack the Mechanisms': 'Décrypter les mécanismes',
       'Build': 'Construire',
@@ -2336,6 +2435,13 @@
       'Launch Pad': 'Rampa di Lancio',
       'Reflection Grove': 'Bosco della Riflessione',
       'Beacon Tower': 'Torre del Faro',
+      /* Bench names */
+      'First Light': 'Prima Luce',
+      'The Spark': 'La Scintilla',
+      'The Forge': 'La Fucina',
+      'The Crucible': 'Il Crogiolo',
+      'The Mirror': 'Lo Specchio',
+      'The Signal': 'Il Segnale',
       'Enter the Machine': 'Entrare nella macchina',
       'Crack the Mechanisms': 'Decifrare i meccanismi',
       'Build': 'Costruire',
@@ -2635,6 +2741,13 @@
       'Launch Pad': 'Plataforma de Llançament',
       'Reflection Grove': 'Bosc de la Reflexió',
       'Beacon Tower': 'Torre del Far',
+      /* Bench names */
+      'First Light': 'Primera Llum',
+      'The Spark': "L'Espurna",
+      'The Forge': 'La Farga',
+      'The Crucible': 'El Gresol',
+      'The Mirror': 'El Mirall',
+      'The Signal': 'El Senyal',
       'Enter the Machine': 'Entrar a la màquina',
       'Crack the Mechanisms': 'Desxifra els mecanismes',
       'Build': 'Construir',
@@ -3350,6 +3463,7 @@
     applyStaticTranslations();
     renderTeams(teamView);
     renderMain();
+    renderFeatured();
   }
   document.querySelectorAll('#langSwitcher button').forEach(btn => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
@@ -3368,17 +3482,6 @@
     logoHome.addEventListener('click', goHome);
     logoHome.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goHome(); }});
   }
-
-  // featured cards click → open the matching skill modal
-  document.querySelectorAll('.featured-card-h').forEach(card => {
-    card.addEventListener('click', () => {
-      const p = parseInt(card.dataset.phase);
-      const n = parseInt(card.dataset.node);
-      if (!isNaN(p) && !isNaN(n) && phases[p] && phases[p].nodes[n]) {
-        openModal(phases[p], phases[p].nodes[n]);
-      }
-    });
-  });
 
   // initial render
   setLang(currentLang);
