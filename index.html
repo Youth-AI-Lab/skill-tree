@@ -41,11 +41,11 @@
     --accent-orange: var(--yal-orange);
     --accent-blue: var(--yal-blue);
 
-    /* Team colours — using official palette */
-    --team-1: var(--yal-yellow);   /* Pacman's — yellow */
-    --team-2: var(--yal-blue);     /* Wolfpack — blue (moonlit wolf) */
-    --team-3: var(--yal-orange);   /* LLUM — orange (warm light) */
-    --team-4: var(--yal-pink);     /* FARO — pink (lighthouse beam at dawn) */
+    /* Team colours — official country palette */
+    --team-1: var(--yal-yellow);   /* Pacman's · France — yellow */
+    --team-2: var(--yal-green);    /* Wolfpack · Belgium — green */
+    --team-3: var(--yal-pink);     /* LLUM · Catalonia — pink */
+    --team-4: var(--yal-blue);     /* FARO · Italy — blue */
 
     /* Page bg — dynamically swapped per bench/team via JS.
        Defaults = navy (used on map view). */
@@ -62,7 +62,7 @@
     font-family: 'Ambiguity', 'Outfit', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--page-bg);
     background-image:
-      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.18'%3E%3Cpath d='M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E");
+      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.18'%3E%3Cpath d='M0 0h280M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M0 0v280M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E");
     background-size: 280px 280px;
     background-repeat: repeat;
     background-attachment: fixed;
@@ -389,16 +389,25 @@
       0 8px 22px rgba(0, 0, 0, 0.35);
   }
   .team-card.active {
+    background: #2a2147;
+    border-color: #ffffff;
     box-shadow:
       0 4px 0 var(--team-color),
       0 0 28px var(--team-color),
       0 8px 26px rgba(0, 0, 0, 0.4);
   }
+  .team-card.active .team-name,
+  .team-card.active .xp-text strong { color: #ffffff; }
+  .team-card.active .team-country,
+  .team-card.active .team-tagline,
+  .team-card.active .xp-text { color: rgba(255,255,255,0.75); }
+  .team-card.active .xp-bar { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
+  .team-card.active .team-avatar { background: #2a2147; border-color: #ffffff; box-shadow: inset 0 0 0 3px var(--team-color), 4px 4px 0 var(--team-color), 4px 4px 0 1px #ffffff; }
   .team-card.active::after {
     content: '★ selected';
     position: absolute; top: 10px; right: 10px;
     font-size: 10px; font-weight: 700;
-    color: var(--bg-2);
+    color: #2a2147;
     background: var(--team-color);
     padding: 4px 9px; border-radius: 999px;
     letter-spacing: 0.5px;
@@ -486,15 +495,13 @@
     gap: 20px;
   }
   .skill-tree-wrapper {
-    background-color: #ffffff;
-    background-image:
-      radial-gradient(circle at 10% 10%, rgba(126, 217, 87, 0.10), transparent 35%),
-      radial-gradient(circle at 90% 90%, rgba(250, 137, 210, 0.10), transparent 35%);
+    background-color: var(--wrapper-bg, #ffffff);
     border: 3px solid var(--yal-blue);
     border-radius: 22px;
     padding: 28px;
     min-height: 700px;
     box-shadow: 0 5px 0 var(--yal-blue), 0 0 28px rgba(56, 182, 255, 0.35);
+    transition: background-color 0.4s ease;
   }
   /* in map view, the world-map element provides its own styling — strip the wrapper */
   .skill-tree-wrapper.is-map-view {
@@ -3381,19 +3388,25 @@
   }
   // Solid pastel bg per bench — strong colour, frank tint
   const BENCH_BG = ['#c8e8a4', '#ffe88a', '#ffc098', '#a8d6f9', '#ffb8e0', '#cba8eb'];
-  const TEAM_BG  = { 1: '#ffe88a', 2: '#a8d6f9', 3: '#ffc098', 4: '#ffb8e0' };
+  // Team pastels — match official country palette
+  const TEAM_BG  = { 1: '#ffe88a', 2: '#c8e8a4', 3: '#ffb8e0', 4: '#a8d6f9' };
 
   function updatePageTint() {
     const root = document.documentElement;
     const teamId = teamView && teamView.startsWith('team-') ? parseInt(teamView.split('-')[1]) : null;
 
     let bg = '#0d1633';   // default: navy (map view)
+    let wrapperBg = '#ffffff';   // default white box around skills
+
     if (typeof worldMode === 'number') {
       bg = BENCH_BG[worldMode];
+      // On a bench page → wrapper turns the team colour when a team is selected
+      if (teamId) wrapperBg = TEAM_BG[teamId];
     } else if (worldMode === 'list' && teamId) {
       bg = TEAM_BG[teamId];
     }
     root.style.setProperty('--page-bg', bg);
+    root.style.setProperty('--wrapper-bg', wrapperBg);
   }
 
   function renderMain() {
