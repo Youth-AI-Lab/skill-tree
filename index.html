@@ -50,10 +50,6 @@
     /* Page bg — dynamically swapped per bench/team via JS.
        Defaults = navy (used on map view). */
     --page-bg: #0d1633;
-    --page-tint-tl: rgba(126, 217, 87, 0.18);
-    --page-tint-tr: rgba(56, 182, 255, 0.20);
-    --page-tint-br: rgba(243, 112, 48, 0.15);
-    --page-tint-bl: rgba(250, 137, 210, 0.18);
 
     --shadow-soft: 0 4px 14px rgba(250, 137, 210, 0.15), 0 2px 0 rgba(42, 33, 71, 0.05);
     --shadow-card: 0 6px 22px rgba(250, 137, 210, 0.18), 0 3px 0 rgba(42, 33, 71, 0.07);
@@ -66,15 +62,9 @@
     font-family: 'Ambiguity', 'Outfit', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--page-bg);
     background-image:
-      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.07'%3E%3Cpath d='M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E"),
-      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='%232a2147' stroke-width='0.5' opacity='0.10'%3E%3Cpath d='M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E"),
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 70%),
-      radial-gradient(circle at 0% 0%, var(--page-tint-tl), transparent 35%),
-      radial-gradient(circle at 100% 0%, var(--page-tint-tr), transparent 35%),
-      radial-gradient(circle at 100% 100%, var(--page-tint-br), transparent 35%),
-      radial-gradient(circle at 0% 100%, var(--page-tint-bl), transparent 35%);
-    background-size: 280px 280px, 280px 280px, auto, auto, auto, auto, auto;
-    background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.18'%3E%3Cpath d='M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 280px 280px;
+    background-repeat: repeat;
     background-attachment: fixed;
     transition: background-color 0.5s ease;
     color: var(--text);
@@ -3389,7 +3379,6 @@
     const b = parseInt(h.substring(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
-  const TEAM_HEX = { 1: '#f9c724', 2: '#38b6ff', 3: '#f37030', 4: '#fa89d2' };
   // Solid pastel bg per bench — strong colour, frank tint
   const BENCH_BG = ['#c8e8a4', '#ffe88a', '#ffc098', '#a8d6f9', '#ffb8e0', '#cba8eb'];
   const TEAM_BG  = { 1: '#ffe88a', 2: '#a8d6f9', 3: '#ffc098', 4: '#ffb8e0' };
@@ -3398,32 +3387,13 @@
     const root = document.documentElement;
     const teamId = teamView && teamView.startsWith('team-') ? parseInt(teamView.split('-')[1]) : null;
 
-    // Default: navy bg + multi-color YAL palette corners (map view)
-    let bg = '#0d1633';
-    let tl = 'rgba(126, 217, 87, 0.18)';
-    let tr = 'rgba(56, 182, 255, 0.20)';
-    let br = 'rgba(243, 112, 48, 0.15)';
-    let bl = 'rgba(250, 137, 210, 0.18)';
-
+    let bg = '#0d1633';   // default: navy (map view)
     if (typeof worldMode === 'number') {
-      // On a specific bench → solid bench pastel, no corner halos (clean)
       bg = BENCH_BG[worldMode];
-      tl = tr = br = bl = 'transparent';
-      // If also filtering by team → soft team-coloured halos at the bottom
-      if (teamId) {
-        const teamCorner = hexToRgba(TEAM_HEX[teamId], 0.35);
-        bl = br = teamCorner;
-      }
     } else if (worldMode === 'list' && teamId) {
-      // All-skills list filtered by team → solid team pastel
       bg = TEAM_BG[teamId];
-      tl = tr = br = bl = 'transparent';
     }
     root.style.setProperty('--page-bg', bg);
-    root.style.setProperty('--page-tint-tl', tl);
-    root.style.setProperty('--page-tint-tr', tr);
-    root.style.setProperty('--page-tint-br', br);
-    root.style.setProperty('--page-tint-bl', bl);
   }
 
   function renderMain() {
