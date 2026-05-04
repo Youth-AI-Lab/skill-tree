@@ -517,14 +517,17 @@
     min-height: 0;
   }
   .phase-block {
-    margin-bottom: 36px;
-    padding: 22px;
+    margin-bottom: 44px;
+    padding: 26px;
     border-radius: 22px;
     background: #ffffff;
-    border: 4px solid var(--world-accent, var(--border-strong));
+    border: 4px solid var(--text);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 6px 0 var(--world-accent, var(--border-strong)), 0 10px 24px rgba(42, 33, 71, 0.12);
+    box-shadow:
+      inset 0 0 0 5px var(--world-accent, var(--border-strong)),
+      8px 8px 0 var(--world-accent, var(--border-strong)),
+      8px 8px 0 1px var(--text);
   }
   .phase-deco {
     position: absolute;
