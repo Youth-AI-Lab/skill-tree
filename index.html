@@ -47,6 +47,14 @@
     --team-3: var(--yal-orange);   /* LLUM — orange (warm light) */
     --team-4: var(--yal-pink);     /* FARO — pink (lighthouse beam at dawn) */
 
+    /* Page tint — dynamically swapped per bench/team via JS.
+       Defaults = multi-color YAL palette (used on map view). */
+    --page-tint-tl: rgba(126, 217, 87, 0.18);
+    --page-tint-tr: rgba(56, 182, 255, 0.20);
+    --page-tint-br: rgba(243, 112, 48, 0.15);
+    --page-tint-bl: rgba(250, 137, 210, 0.18);
+    --page-wash: transparent;
+
     --shadow-soft: 0 4px 14px rgba(250, 137, 210, 0.15), 0 2px 0 rgba(42, 33, 71, 0.05);
     --shadow-card: 0 6px 22px rgba(250, 137, 210, 0.18), 0 3px 0 rgba(42, 33, 71, 0.07);
     --shadow-hover: 0 10px 32px rgba(250, 137, 210, 0.28), 0 5px 0 rgba(42, 33, 71, 0.1);
@@ -59,14 +67,16 @@
     background-color: #0d1633;
     background-image:
       url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.07'%3E%3Cpath d='M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E"),
+      radial-gradient(ellipse 100% 80% at 50% 50%, var(--page-wash), transparent 80%),
       radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 255, 255, 0.08), transparent 70%),
-      radial-gradient(circle at 0% 0%, rgba(126, 217, 87, 0.18), transparent 35%),
-      radial-gradient(circle at 100% 0%, rgba(56, 182, 255, 0.20), transparent 35%),
-      radial-gradient(circle at 100% 100%, rgba(243, 112, 48, 0.15), transparent 35%),
-      radial-gradient(circle at 0% 100%, rgba(250, 137, 210, 0.18), transparent 35%);
-    background-size: 280px 280px, auto, auto, auto, auto, auto;
-    background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+      radial-gradient(circle at 0% 0%, var(--page-tint-tl), transparent 35%),
+      radial-gradient(circle at 100% 0%, var(--page-tint-tr), transparent 35%),
+      radial-gradient(circle at 100% 100%, var(--page-tint-br), transparent 35%),
+      radial-gradient(circle at 0% 100%, var(--page-tint-bl), transparent 35%);
+    background-size: 280px 280px, auto, auto, auto, auto, auto, auto;
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
     background-attachment: fixed;
+    transition: background-color 0.5s ease;
     color: var(--text);
     min-height: 100vh;
     padding: 32px 24px;
@@ -3365,6 +3375,54 @@
     attachNodeClicks(wrapper);
   }
 
+  /* =========================================================
+     PAGE TINT — swap body bg colors per current view
+     ========================================================= */
+  function hexToRgba(hex, alpha) {
+    const h = hex.replace('#', '');
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  const TEAM_HEX = { 1: '#f9c724', 2: '#38b6ff', 3: '#f37030', 4: '#fa89d2' };
+
+  function updatePageTint() {
+    const root = document.documentElement;
+    const teamId = teamView && teamView.startsWith('team-') ? parseInt(teamView.split('-')[1]) : null;
+
+    // Defaults — multi-color YAL palette + no wash (used on map view, no team filter)
+    let tl = 'rgba(126, 217, 87, 0.18)';
+    let tr = 'rgba(56, 182, 255, 0.20)';
+    let br = 'rgba(243, 112, 48, 0.15)';
+    let bl = 'rgba(250, 137, 210, 0.18)';
+    let wash = 'transparent';
+
+    if (typeof worldMode === 'number') {
+      // On a specific bench → pastel wash + 4 corners in bench colour
+      const benchHex = phases[worldMode].worldAccent;
+      const corner = hexToRgba(benchHex, 0.30);
+      tl = tr = br = bl = corner;
+      wash = hexToRgba(benchHex, 0.10);
+      // If also filtering by team → team colour on bottom corners
+      if (teamId) {
+        const teamCorner = hexToRgba(TEAM_HEX[teamId], 0.30);
+        bl = br = teamCorner;
+      }
+    } else if (worldMode === 'list' && teamId) {
+      // All-skills list filtered by team → 4 corners team colour + soft wash
+      const teamHex = TEAM_HEX[teamId];
+      const corner = hexToRgba(teamHex, 0.28);
+      tl = tr = br = bl = corner;
+      wash = hexToRgba(teamHex, 0.08);
+    }
+    root.style.setProperty('--page-tint-tl', tl);
+    root.style.setProperty('--page-tint-tr', tr);
+    root.style.setProperty('--page-tint-br', br);
+    root.style.setProperty('--page-tint-bl', bl);
+    root.style.setProperty('--page-wash', wash);
+  }
+
   function renderMain() {
     const featured = document.getElementById('featuredPanel');
     const teamsGrid = document.getElementById('teamsGrid');
@@ -3373,6 +3431,7 @@
     if (featured)   featured.style.display   = isMap ? '' : 'none';
     if (teamsGrid)  teamsGrid.style.display  = '';                /* always show teams */
     if (viewToggle) viewToggle.style.display = isMap ? 'none' : '';
+    updatePageTint();
     if (isMap)                       renderMap();
     else if (worldMode === 'list')   renderList(teamView);
     else                              renderWorldDetail(worldMode, teamView);
