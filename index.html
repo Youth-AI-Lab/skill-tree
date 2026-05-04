@@ -3175,11 +3175,13 @@
       card.addEventListener('click', () => {
         const teamId = card.dataset.team;
         teamView = `team-${teamId}`;
-        worldMode = 'list';
+        // Only switch to "list" if currently on the bench map; otherwise
+        // keep current bench / list view and just apply the team filter.
+        if (worldMode === 'map') worldMode = 'list';
         document.querySelectorAll('#viewToggle button').forEach(b =>
           b.classList.toggle('active', b.dataset.view === teamView));
         document.querySelectorAll('#modeToggle button').forEach(b =>
-          b.classList.toggle('active', b.dataset.mode === 'list'));
+          b.classList.toggle('active', typeof worldMode === 'string' && b.dataset.mode === worldMode));
         renderMain();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
