@@ -144,15 +144,15 @@
     transform: translateY(-1px);
   }
   .view-toggle button.active {
-    background: var(--primary); color: var(--bg-1);
-    box-shadow: 0 0 20px rgba(126, 217, 87, 0.55);
-    animation: subtleGlow 2.4s ease-in-out infinite;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(0,0,0,0.18);
   }
+  .view-toggle button[data-view="all"].active     { background: #2a2147; }
+  .view-toggle button[data-view="team-1"].active  { background: var(--team-1); color: #2a2147; }
+  .view-toggle button[data-view="team-2"].active  { background: var(--team-2); color: #2a2147; }
+  .view-toggle button[data-view="team-3"].active  { background: var(--team-3); color: #2a2147; }
+  .view-toggle button[data-view="team-4"].active  { background: var(--team-4); color: #2a2147; }
   .view-toggle button.active:hover { transform: translateY(0); }
-  @keyframes subtleGlow {
-    0%, 100% { box-shadow: 0 0 16px rgba(126, 217, 87, 0.45); }
-    50%      { box-shadow: 0 0 26px rgba(126, 217, 87, 0.7); }
-  }
 
   /* ================== HEADER RIGHT GROUP ================== */
   .header-right {
