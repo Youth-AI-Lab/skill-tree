@@ -259,11 +259,11 @@
   .world-map-title::after {
     content: '';
     display: block;
-    width: 180px; height: 8px;
+    width: 100%; height: 3px;
     background: var(--yal-yellow);
-    margin: 6px auto 0;
+    margin: 14px auto 0;
     border-radius: 999px;
-    box-shadow: 0 0 14px rgba(249, 199, 36, 0.6);
+    box-shadow: 0 0 8px rgba(249, 199, 36, 0.45);
   }
   .island-grid {
     display: grid;
@@ -724,19 +724,23 @@
   }
 
   /* ================== SIDEBAR (recent activity) ================== */
+  .sidebar-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 24px;
+    height: fit-content;
+  }
   .sidebar {
     background: var(--bg-2);
     border: 3px solid var(--yal-yellow);
     border-radius: 22px;
-    padding: 20px;
-    height: fit-content;
-    position: sticky; top: 24px;
+    padding: 18px;
     box-shadow: 0 5px 0 var(--yal-yellow), 0 0 22px rgba(249, 199, 36, 0.3);
   }
-  /* in map view, the sidebar stretches to match the world-map height */
-  .skill-tree-wrapper.is-map-view ~ .sidebar {
-    height: auto;
-    align-self: stretch;
+  /* in map view, the stack still sticks but the inner sidebar doesn't stretch */
+  .skill-tree-wrapper.is-map-view ~ .sidebar-stack {
     position: static;
   }
   .sidebar h3 {
@@ -748,9 +752,9 @@
   }
   .activity-item {
     display: flex; gap: 10px;
-    padding: 12px 0;
+    padding: 9px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 13px;
+    font-size: 12px;
   }
   .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
   .activity-dot {
@@ -775,6 +779,29 @@
     font-size: 12px;
     font-weight: 700;
     border: 2px solid var(--accent);
+  }
+  .back-to-top {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-2);
+    color: var(--text);
+    border: 3px solid var(--text);
+    border-radius: 18px;
+    font-family: 'Ambiguity Inline', 'Bungee Inline', cursive;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--yal-blue), 4px 4px 0 1px var(--text);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .back-to-top:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--yal-blue), 6px 6px 0 1px var(--text);
+  }
+  .back-to-top:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--yal-blue), 2px 2px 0 1px var(--text);
   }
 
   /* ================== FEATURED ACTIVITY IDEAS (below skill tree) ================== */
@@ -1076,6 +1103,7 @@
 
     <div class="skill-tree-wrapper" id="skillTree"></div>
 
+    <div class="sidebar-stack">
     <div class="sidebar">
       <h3 data-i18n="recentActivity">Recent activity</h3>
       <div class="activity-item">
@@ -1107,6 +1135,8 @@
         </div>
       </div>
       <div class="legend-tip" data-i18n="legendTip">💡 Click any quest for the official DigComp 3.0 description</div>
+    </div>
+    <button class="back-to-top" id="backToTop" data-i18n="backToTop">↑ Back to top</button>
     </div>
 
   </div>
@@ -1647,6 +1677,7 @@
       featuredSub: 'Try these skills with your group — no AI background needed.',
       featuredRotation: 'Rotates every 3 weeks · next change on {date}',
       backToMap: '← Back to bench map',
+      backToTop: '↑ Back to top',
       questsCount: 'skills',
       skillsAcquired: 'Skills validated',
       currentlyExploring: 'Currently at · Bench',
@@ -1680,6 +1711,7 @@
       featuredSub: 'Probeer deze vaardigheden met je groep — geen AI-kennis nodig.',
       featuredRotation: 'Wisselt elke 3 weken · volgende wijziging op {date}',
       backToMap: '← Terug naar de werkbankkaart',
+      backToTop: '↑ Terug naar boven',
       questsCount: 'vaardigheden',
       skillsAcquired: 'Gevalideerde vaardigheden',
       currentlyExploring: 'In het lab · Werkbank',
@@ -1713,6 +1745,7 @@
       featuredSub: 'Essaie ces compétences avec ton groupe — pas besoin de connaître l’IA.',
       featuredRotation: 'Renouvelée toutes les 3 semaines · prochain changement le {date}',
       backToMap: '← Retour à la carte des paillasses',
+      backToTop: '↑ Retour en haut',
       questsCount: 'compétences',
       skillsAcquired: 'Compétences validées',
       currentlyExploring: 'Au labo · Paillasse',
@@ -1746,6 +1779,7 @@
       featuredSub: 'Prova queste competenze con il tuo gruppo — non servono conoscenze di IA.',
       featuredRotation: 'Si rinnova ogni 3 settimane · prossimo cambio il {date}',
       backToMap: '← Torna alla mappa dei banconi',
+      backToTop: "↑ Torna su",
       questsCount: 'competenze',
       skillsAcquired: 'Competenze validate',
       currentlyExploring: 'In laboratorio · Bancone',
@@ -1779,6 +1813,7 @@
       featuredSub: 'Prova aquestes competències amb el teu grup — no cal saber d’IA.',
       featuredRotation: 'Es renova cada 3 setmanes · pròxim canvi el {date}',
       backToMap: '← Torna al mapa de les bancades',
+      backToTop: '↑ Tornar a dalt',
       questsCount: 'skills',
       skillsAcquired: 'Competències validades',
       currentlyExploring: 'Al laboratori · Bancada',
@@ -3544,6 +3579,14 @@
     };
     logoHome.addEventListener('click', goHome);
     logoHome.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goHome(); }});
+  }
+
+  // back-to-top button
+  const backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 
   // initial render
