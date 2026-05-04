@@ -148,11 +148,14 @@
     box-shadow: 0 0 18px rgba(0,0,0,0.18);
   }
   .view-toggle button[data-view="all"].active     { background: #2a2147; }
-  .view-toggle button[data-view="team-1"].active  { background: var(--team-1); color: #2a2147; }
-  .view-toggle button[data-view="team-2"].active  { background: var(--team-2); color: #2a2147; }
-  .view-toggle button[data-view="team-3"].active  { background: var(--team-3); color: #2a2147; }
-  .view-toggle button[data-view="team-4"].active  { background: var(--team-4); color: #2a2147; }
+  .view-toggle button[data-view="team-1"].active  { background: var(--team-1); color: #ffffff; }
+  .view-toggle button[data-view="team-2"].active  { background: var(--team-2); color: #ffffff; }
+  .view-toggle button[data-view="team-3"].active  { background: var(--team-3); color: #ffffff; }
+  .view-toggle button[data-view="team-4"].active  { background: var(--team-4); color: #ffffff; }
   .view-toggle button.active:hover { transform: translateY(0); }
+  .view-toggle button.active .vt-icon {
+    filter: brightness(0) invert(1);   /* turns the colourful emoji into a white silhouette */
+  }
 
   /* ================== HEADER RIGHT GROUP ================== */
   .header-right {
@@ -1054,10 +1057,10 @@
   <!-- ====== TEAM TOGGLE (above team cards) ====== -->
   <div class="view-toggle" id="viewToggle">
     <button class="active" data-view="all" data-i18n="allTeams">All teams</button>
-    <button data-view="team-1">👾 Pacman's</button>
-    <button data-view="team-2">🐺 Wolfpack</button>
-    <button data-view="team-3">🦊 LLUM</button>
-    <button data-view="team-4">🦅 FARO</button>
+    <button data-view="team-1"><span class="vt-icon">👾</span> Pacman's</button>
+    <button data-view="team-2"><span class="vt-icon">🐺</span> Wolfpack</button>
+    <button data-view="team-3"><span class="vt-icon">🦊</span> LLUM</button>
+    <button data-view="team-4"><span class="vt-icon">🦅</span> FARO</button>
   </div>
 
   <!-- ====== 4 TEAM CARDS ====== -->
@@ -3189,6 +3192,7 @@
           b.classList.toggle('active', b.dataset.view === teamView));
         document.querySelectorAll('#modeToggle button').forEach(b =>
           b.classList.toggle('active', typeof worldMode === 'string' && b.dataset.mode === worldMode));
+        renderTeams(teamView);   // re-render so the clicked card gets the .active dark style
         renderMain();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
@@ -3386,8 +3390,8 @@
     const b = parseInt(h.substring(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
-  // Solid pastel bg per bench — strong colour, frank tint
-  const BENCH_BG = ['#c8e8a4', '#ffe88a', '#ffc098', '#a8d6f9', '#ffb8e0', '#cba8eb'];
+  // Solid bg per bench — DARK variants of each bench accent
+  const BENCH_BG = ['#3d7a1e', '#9a7c1e', '#a83e15', '#1e3a8a', '#9b2566', '#5b2890'];
   // Team pastels — match official country palette
   const TEAM_BG  = { 1: '#ffe88a', 2: '#c8e8a4', 3: '#ffb8e0', 4: '#a8d6f9' };
 
@@ -3416,8 +3420,8 @@
     const isMap = worldMode === 'map';
     if (featured)   featured.style.display   = isMap ? '' : 'none';
     if (teamsGrid)  teamsGrid.style.display  = '';                /* always show teams */
-    // Hide on bench map AND on individual bench pages — only show in list view
-    if (viewToggle) viewToggle.style.display = (worldMode === 'list') ? '' : 'none';
+    // Hide on bench map only — show on bench detail and all-skills list
+    if (viewToggle) viewToggle.style.display = isMap ? 'none' : '';
     updatePageTint();
     if (isMap)                       renderMap();
     else if (worldMode === 'list')   renderList(teamView);
