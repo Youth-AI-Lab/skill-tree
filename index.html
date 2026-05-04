@@ -406,6 +406,7 @@
   .team-card.active .xp-text { color: rgba(255,255,255,0.75); }
   .team-card.active .xp-bar { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
   .team-card.active .team-avatar { background: #2a2147; border-color: #ffffff; box-shadow: inset 0 0 0 3px var(--team-color), 4px 4px 0 var(--team-color), 4px 4px 0 1px #ffffff; }
+  .team-card.active .ta-icon { filter: brightness(0) invert(1); display: inline-block; }
   .team-card.active::after {
     content: '★ selected';
     position: absolute; top: 10px; right: 10px;
@@ -3168,7 +3169,7 @@
              data-team="${t.id}">
           <div class="team-country">${t.country}</div>
           <div class="team-header">
-            <div class="team-avatar">${t.avatar}</div>
+            <div class="team-avatar"><span class="ta-icon">${t.avatar}</span></div>
             <div>
               <div class="team-name">${t.name}</div>
               <div class="team-tagline">${tr('currentlyExploring')} ${t.level}</div>
@@ -3400,17 +3401,13 @@
     const teamId = teamView && teamView.startsWith('team-') ? parseInt(teamView.split('-')[1]) : null;
 
     let bg = '#0d1633';   // default: navy (map view)
-    let wrapperBg = '#ffffff';   // default white box around skills
 
     if (typeof worldMode === 'number') {
       bg = BENCH_BG[worldMode];
-      // On a bench page → wrapper turns the team colour when a team is selected
-      if (teamId) wrapperBg = TEAM_BG[teamId];
     } else if (worldMode === 'list' && teamId) {
       bg = TEAM_BG[teamId];
     }
     root.style.setProperty('--page-bg', bg);
-    root.style.setProperty('--wrapper-bg', wrapperBg);
   }
 
   function renderMain() {
@@ -3532,8 +3529,12 @@
   if (logoHome) {
     const goHome = () => {
       worldMode = 'map';
+      teamView = 'all';   // also clear team filter on return to cover
       document.querySelectorAll('#modeToggle button').forEach(b =>
         b.classList.toggle('active', b.dataset.mode === 'map'));
+      document.querySelectorAll('#viewToggle button').forEach(b =>
+        b.classList.toggle('active', b.dataset.view === 'all'));
+      renderTeams(teamView);   // re-render team cards so .active gets removed
       renderMain();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
