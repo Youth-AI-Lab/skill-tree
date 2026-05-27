@@ -1,0 +1,419 @@
+{
+  "lastUpdated": "2026-05-27",
+  "labs": {
+    "1": "Pacman's Return",
+    "2": "Wolfpack",
+    "3": "LLUM",
+    "4": "FARO"
+  },
+  "skills": {
+    "spot-the-ai": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "sort-the-real-ai": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "hunt-for-ai-in-the-wild": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "guard-your-data": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "truth-dispatcher": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "the-planet-cost": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "detect-hidden-helpers": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "wellbeing-watch": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "mark-the-bots-work": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "human-in-the-loop": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "human-or-machine": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "search-engines-decoded": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "spot-the-collaborator": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "meet-the-creators": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "crack-the-copyright-code": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "the-glass-box": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "the-human-pilot": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "trace-the-training": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "plausible-but-wrong": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "the-black-box": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "truth-detector": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "bias-hunters": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "test-the-bots": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "tool-inspector": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "ethical-sidekick": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "creators-compass": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "transparent-mode": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "behind-the-curtain": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "source-sniper": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "decode-machine-learning": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "sector-scanner": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "master-the-prompt": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "create-with-ai": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "training-data-trial": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "ml-decoder": {
+      "1": "done",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "cyber-shield": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "data-rights-maze": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "privacy-patrol": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "creativity-compass": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "cyber-battlefield": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "trust-protocol": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "deepfake-detective": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "prompt-architect": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "red-flag-radar": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "impact-forecast": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "collab-auditor": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "team-ethics": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "id-guardian": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "id-ethics": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "content-surgeon": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "input-vs-output": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "humans-in-charge": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "build-roadmap": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "ml-taxonomist": {
+      "1": "in-progress",
+      "2": null,
+      "3": null,
+      "4": "done"
+    },
+    "algorithm-atlas": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "task-automator": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": "in-progress"
+    },
+    "build-ethics": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "oversight-anchor": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "automation-mentor": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "train-the-crew": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "constant-scrutiny": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "future-watcher": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "quest-leader": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "ethics-champion": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "collab-innovator": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "content-advocate": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "ethical-dev-champion": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    },
+    "ai-master": {
+      "1": null,
+      "2": null,
+      "3": null,
+      "4": null
+    }
+  }
+}

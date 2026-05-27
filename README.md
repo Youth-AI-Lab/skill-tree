@@ -2,14 +2,56 @@
 
 Interactive AI Skill Tree prototype for the YouthAI Lab program.
 
-## 🌍 Live site
+## Live site
 **https://youth-ai-lab.github.io/skill-tree/** (deployed via GitHub Pages)
 
 ## How to use
-Just open the live URL above. Or run it locally by opening `index.html` in any modern browser.
+Just open the live URL above. To preview locally with live progress data, run
+a small static server from this folder (because `fetch('progress.json')` does
+not work over `file://`):
+
+```
+python3 -m http.server 8000
+```
+
+then open http://localhost:8000. Opening `index.html` directly still works, but
+falls back to the inline snapshot of lab progress baked into the page.
+
+## Updating lab progress (the part that matters)
+
+Each lab's real progress is stored in **`progress.json`**, keyed by a slug
+derived from the English skill title. The page fetches this file at boot and
+overrides the inline defaults.
+
+Edit `progress.json`, commit, push — GitHub Pages re-deploys in about a minute.
+
+Status values per lab:
+- `"done"` — skill validated
+- `"in-progress"` — currently being explored
+- `null` — not started yet
+
+Lab IDs:
+- `"1"` — France
+- `"2"` — Belgium
+- `"3"` — Catalonia
+- `"4"` — Italy
+
+Example: mark the Catalonia lab as having validated "Master the Prompt":
+
+```json
+"master-the-prompt": { "1": null, "2": null, "3": "done", "4": null }
+```
+
+And bump `lastUpdated` to the date of your edit so the header badge stays
+accurate:
+
+```json
+"lastUpdated": "2026-05-27"
+```
 
 ## What's inside
 - **`index.html`** — the prototype (single self-contained HTML/JS/CSS file)
+- **`progress.json`** — live status of each lab against each of the 68 skills
 - **`source/AI-Skill-Tree-source.md`** — original DigComp 3.0 source from which the 68 skills are drawn
 - **`yal_logo.png`** + **`eu_co-funded.png`** — branding assets used in the page
 

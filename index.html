@@ -120,6 +120,14 @@
     font-size: 12px; color: var(--text-dim);
     font-weight: 600;
   }
+  .last-updated {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px; color: var(--text-dim);
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .last-updated:empty { display: none; }
 
   /* ================== VIEW TOGGLE (above teams) ================== */
   .view-toggle {
@@ -1070,6 +1078,7 @@
         <small data-i18n="skillTree">AI Skill Tree</small>
       </div>
       <div class="header-info" data-i18n="headerInfo">DigComp 3.0 · 4 teams · 6 levels · 68 quests</div>
+      <small class="last-updated" id="lastUpdated"></small>
     </div>
     <div class="header-actions">
       <div class="lang-switcher" id="langSwitcher">
@@ -1689,6 +1698,7 @@
       notStarted: 'Pending',
       levelWord: 'Bench',
       digcompNote: '',
+      updatedPrefix: 'Lab progress updated',
       featured1Title: 'Bias Hunters',
       featured1Desc: 'Ask 3 different AI chatbots the same question about a sensitive topic. Compare their answers and list any biases you spot.',
       featured2Title: 'Master the Prompt',
@@ -1723,6 +1733,7 @@
       notStarted: 'Te ontdekken',
       levelWord: 'Werkbank',
       digcompNote: 'Onofficiële vertaling — officiële JRC-versie in afwachting.',
+      updatedPrefix: 'Labvoortgang bijgewerkt op',
       featured1Title: 'Bias jagers',
       featured1Desc: "Stel dezelfde vraag over een gevoelig onderwerp aan 3 verschillende AI-chatbots. Vergelijk de antwoorden en lijst de bias op die je opmerkt.",
       featured2Title: 'Beheers de prompt',
@@ -1757,6 +1768,7 @@
       notStarted: 'À explorer',
       levelWord: 'Paillasse',
       digcompNote: 'Traduction non officielle — version officielle JRC en attente.',
+      updatedPrefix: 'Avancement mis à jour le',
       featured1Title: 'Chasseurs de biais',
       featured1Desc: "Pose la même question sur un sujet sensible à 3 chatbots IA différents. Compare les réponses et liste les biais repérés.",
       featured2Title: 'Maîtrise le prompt',
@@ -1791,6 +1803,7 @@
       notStarted: 'Da esplorare',
       levelWord: 'Bancone',
       digcompNote: 'Traduzione non ufficiale — versione ufficiale JRC in attesa.',
+      updatedPrefix: 'Avanzamento aggiornato il',
       featured1Title: 'Cacciatori di bias',
       featured1Desc: "Fai la stessa domanda su un tema sensibile a 3 chatbot IA diversi. Confronta le risposte ed elenca i bias che noti.",
       featured2Title: 'Padrone del prompt',
@@ -1825,6 +1838,7 @@
       notStarted: 'Per explorar',
       levelWord: 'Bancada',
       digcompNote: 'Traducció no oficial — versió oficial JRC pendent.',
+      updatedPrefix: 'Progrés actualitzat el',
       featured1Title: 'Caçadors de biaixos',
       featured1Desc: "Pregunta el mateix tema sensible a 3 chatbots d'IA diferents. Compara les respostes i llista els biaixos que detectes.",
       featured2Title: 'Domina el prompt',
@@ -3558,6 +3572,7 @@
     renderTeams(teamView);
     renderMain();
     renderFeatured();
+    if (typeof renderUpdatedBadge === 'function') renderUpdatedBadge();
   }
   document.querySelectorAll('#langSwitcher button').forEach(btn => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
@@ -3589,8 +3604,59 @@
     });
   }
 
-  // initial render
+  /* =========================================================
+     LIVE LAB PROGRESS — fetch progress.json on boot and override
+     the inline `teams` data. Edit progress.json to update what
+     each lab has validated; the inline data in `phases` above is
+     a fallback used only when the JSON cannot be loaded.
+     ========================================================= */
+  function slugifyTitle(s) {
+    return s.toLowerCase()
+      .replace(/[''`]/g, '')
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+  let progressDate = null;
+  function renderUpdatedBadge() {
+    const el = document.getElementById('lastUpdated');
+    if (!el || !progressDate) return;
+    let formatted = progressDate;
+    try {
+      const d = new Date(progressDate + 'T00:00:00Z');
+      if (!isNaN(d)) {
+        formatted = new Intl.DateTimeFormat(currentLang, {
+          year: 'numeric', month: 'long', day: 'numeric'
+        }).format(d);
+      }
+    } catch (e) { /* keep raw */ }
+    el.textContent = `${tr('updatedPrefix')} ${formatted}`;
+  }
+
+  // initial render with inline fallback data
   setLang(currentLang);
+
+  // then try to load the live progress and re-render if available
+  fetch('progress.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : Promise.reject(new Error('progress.json fetch failed')))
+    .then(data => {
+      if (!data || !data.skills) return;
+      for (const phase of phases) {
+        for (const node of phase.nodes) {
+          const id = slugifyTitle(node.title);
+          if (data.skills[id]) node.teams = data.skills[id];
+        }
+      }
+      if (data.lastUpdated) {
+        progressDate = data.lastUpdated;
+        renderUpdatedBadge();
+      }
+      renderTeams(teamView);
+      renderMain();
+    })
+    .catch(err => {
+      console.warn('Live progress.json unavailable — using inline fallback.', err);
+    });
 </script>
 </body>
 </html>
