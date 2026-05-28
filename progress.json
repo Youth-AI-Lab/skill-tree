@@ -418,12 +418,6 @@
   },
   "journal": [
     {
-      "team": 4,
-      "skill": "bias-hunters",
-      "status": "done",
-      "note": "BIAS: Genre Matters"
-    },
-    {
       "team": 1,
       "skill": "sector-scanner",
       "status": "in-progress",
@@ -437,9 +431,9 @@
     },
     {
       "team": 4,
-      "skill": "ml-taxonomist",
+      "skill": "bias-hunters",
       "status": "done",
-      "note": "LLM, Robotics & Machine Learning"
+      "note": "BIAS: Genre Matters · Apr 2026"
     },
     {
       "team": 1,
@@ -449,9 +443,15 @@
     },
     {
       "team": 4,
+      "skill": "ml-taxonomist",
+      "status": "done",
+      "note": "LLM, Robotics & Machine Learning · 11 Mar 2026"
+    },
+    {
+      "team": 4,
       "skill": "spot-the-ai",
       "status": "done",
-      "note": "Keep an Eye on AI"
+      "note": "Keep an Eye on AI · 11 Feb 2026"
     },
     {
       "team": 1,
