@@ -421,13 +421,13 @@
       "team": 1,
       "skill": "sector-scanner",
       "status": "in-progress",
-      "note": "French Robotic Cup · 15 May 2026"
+      "note": "French Robotic Cup · May 2026"
     },
     {
       "team": 1,
       "skill": "create-with-ai",
       "status": "done",
-      "note": "The Stupid Invention · The Pitch · 24 Apr 2026"
+      "note": "The Stupid Invention · The Pitch · Apr 2026"
     },
     {
       "team": 4,
@@ -439,25 +439,25 @@
       "team": 1,
       "skill": "master-the-prompt",
       "status": "done",
-      "note": "The Stupid Invention · Convincing Investors · 15 Apr 2026"
+      "note": "The Stupid Invention · Convincing Investors · Apr 2026"
     },
     {
       "team": 4,
       "skill": "ml-taxonomist",
       "status": "done",
-      "note": "LLM, Robotics & Machine Learning · 11 Mar 2026"
+      "note": "LLM, Robotics & Machine Learning · Mar 2026"
     },
     {
       "team": 4,
       "skill": "spot-the-ai",
       "status": "done",
-      "note": "Keep an Eye on AI · 11 Feb 2026"
+      "note": "Keep an Eye on AI · Feb 2026"
     },
     {
       "team": 1,
       "skill": "ml-decoder",
       "status": "done",
-      "note": "Reinforcement Learning · 28 Jan 2026"
+      "note": "Reinforcement Learning · Jan 2026"
     }
   ]
 }
