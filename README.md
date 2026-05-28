@@ -46,8 +46,27 @@ And bump `lastUpdated` to the date of your edit so the header badge stays
 accurate:
 
 ```json
-"lastUpdated": "2026-05-27"
+"lastUpdated": "2026-05-28"
 ```
+
+Each lab's percentage and "currently at bench" line are computed automatically
+from the `done` statuses — there is nothing to edit by hand for those.
+
+### Lab journal (recent activity)
+
+The sidebar "Recent activity" feed is driven by the `journal` array in
+`progress.json`, most recent first. Each entry:
+
+```json
+{ "team": 4, "skill": "bias-hunters", "status": "done", "note": "BIAS: Genre Matters" }
+```
+
+- `team` — lab id (1-4)
+- `skill` — the skill slug (same keys as in `skills`)
+- `status` — `"done"` ("validated") or `"in-progress"` ("started")
+- `note` — free text shown under the entry (session name and/or date)
+
+Add a line at the top after each session; remove old ones to keep the feed short.
 
 ## What's inside
 - **`index.html`** — the prototype (single self-contained HTML/JS/CSS file)

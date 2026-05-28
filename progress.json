@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-27",
+  "lastUpdated": "2026-05-28",
   "labs": {
     "1": "Pacman's Return",
     "2": "Wolfpack",
@@ -415,5 +415,49 @@
       "3": null,
       "4": null
     }
-  }
+  },
+  "journal": [
+    {
+      "team": 4,
+      "skill": "bias-hunters",
+      "status": "done",
+      "note": "BIAS: Genre Matters"
+    },
+    {
+      "team": 1,
+      "skill": "sector-scanner",
+      "status": "in-progress",
+      "note": "French Robotic Cup · 15 May 2026"
+    },
+    {
+      "team": 1,
+      "skill": "create-with-ai",
+      "status": "done",
+      "note": "The Stupid Invention · The Pitch · 24 Apr 2026"
+    },
+    {
+      "team": 4,
+      "skill": "ml-taxonomist",
+      "status": "done",
+      "note": "LLM, Robotics & Machine Learning"
+    },
+    {
+      "team": 1,
+      "skill": "master-the-prompt",
+      "status": "done",
+      "note": "The Stupid Invention · Convincing Investors · 15 Apr 2026"
+    },
+    {
+      "team": 4,
+      "skill": "spot-the-ai",
+      "status": "done",
+      "note": "Keep an Eye on AI"
+    },
+    {
+      "team": 1,
+      "skill": "ml-decoder",
+      "status": "done",
+      "note": "Reinforcement Learning · 28 Jan 2026"
+    }
+  ]
 }

@@ -778,6 +778,11 @@
     margin-top: 4px;
     font-weight: 600;
   }
+  .activity-empty {
+    font-size: 12px; color: var(--text-soft);
+    font-weight: 500; font-style: italic;
+    padding: 4px 0;
+  }
   .legend-tip {
     margin-top: 14px;
     padding: 12px 14px;
@@ -1115,34 +1120,7 @@
     <div class="sidebar-stack">
     <div class="sidebar">
       <h3 data-i18n="recentActivity">Recent activity</h3>
-      <div class="activity-item">
-        <div class="activity-dot" style="color: var(--team-3); background: var(--team-3)"></div>
-        <div>
-          <div class="activity-text"><strong>LLUM</strong> started <strong>Master the Prompt</strong></div>
-          <div class="activity-time">2 days ago · Level 4 unlocked</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-dot" style="color: var(--team-1); background: var(--team-1)"></div>
-        <div>
-          <div class="activity-text"><strong>Pacman's</strong> earned <strong>Test the Bots</strong></div>
-          <div class="activity-time">4 days ago · +1 Level 3 skill</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-dot" style="color: var(--team-2); background: var(--team-2)"></div>
-        <div>
-          <div class="activity-text"><strong>Wolfpack</strong> working on <strong>Crack the Copyright Code</strong></div>
-          <div class="activity-time">5 days ago · Level 2 in progress</div>
-        </div>
-      </div>
-      <div class="activity-item">
-        <div class="activity-dot" style="color: var(--team-4); background: var(--team-4)"></div>
-        <div>
-          <div class="activity-text"><strong>FARO</strong> tackling <strong>Mark the Bot's Work</strong></div>
-          <div class="activity-time">1 week ago · Level 1 nearly complete</div>
-        </div>
-      </div>
+      <div id="labJournal"></div>
       <div class="legend-tip" data-i18n="legendTip">💡 Click any quest for the official DigComp 3.0 description</div>
     </div>
     <button class="back-to-top" id="backToTop" data-i18n="backToTop">↑ Back to top</button>
@@ -1197,10 +1175,10 @@
      ========================================================= */
 
   const teams = [
-    { id: 1, name: "Pacman's Return", short: "Pacman's", avatar: '👾', color: 'var(--team-1)', level: 3, xp: 47, country: "France · Le retour des Pacman's" },
-    { id: 2, name: 'Wolfpack',        short: 'Wolfpack', avatar: '🐺', color: 'var(--team-2)', level: 2, xp: 28, country: 'Belgium · Watchers Of LLM Failures' },
-    { id: 3, name: 'LLUM',            short: 'LLUM',     avatar: '🦊', color: 'var(--team-3)', level: 4, xp: 56, country: 'Catalonia · Light on LLM Understanding & Meaning' },
-    { id: 4, name: 'FARO',            short: 'FARO',     avatar: '🦅', color: 'var(--team-4)', level: 1, xp: 14, country: 'Italy · Future-oriented AI for Responsible Outreach' },
+    { id: 1, name: "Pacman's Return", short: "Pacman's", avatar: '👾', color: 'var(--team-1)', country: "France · Le retour des Pacman's" },
+    { id: 2, name: 'Wolfpack',        short: 'Wolfpack', avatar: '🐺', color: 'var(--team-2)', country: 'Belgium · Watchers Of LLM Failures' },
+    { id: 3, name: 'LLUM',            short: 'LLUM',     avatar: '🦊', color: 'var(--team-3)', country: 'Catalonia · Light on LLM Understanding & Meaning' },
+    { id: 4, name: 'FARO',            short: 'FARO',     avatar: '🦅', color: 'var(--team-4)', country: 'Italy · Future-oriented AI for Responsible Outreach' },
   ];
 
   /* =========================================================
@@ -1699,6 +1677,9 @@
       levelWord: 'Bench',
       digcompNote: '',
       updatedPrefix: 'Lab progress updated',
+      journalValidated: 'validated',
+      journalStarted: 'started',
+      journalEmpty: 'No activity logged yet.',
       featured1Title: 'Bias Hunters',
       featured1Desc: 'Ask 3 different AI chatbots the same question about a sensitive topic. Compare their answers and list any biases you spot.',
       featured2Title: 'Master the Prompt',
@@ -1734,6 +1715,9 @@
       levelWord: 'Werkbank',
       digcompNote: 'Onofficiële vertaling — officiële JRC-versie in afwachting.',
       updatedPrefix: 'Labvoortgang bijgewerkt op',
+      journalValidated: 'valideerde',
+      journalStarted: 'begon aan',
+      journalEmpty: 'Nog geen activiteit geregistreerd.',
       featured1Title: 'Bias jagers',
       featured1Desc: "Stel dezelfde vraag over een gevoelig onderwerp aan 3 verschillende AI-chatbots. Vergelijk de antwoorden en lijst de bias op die je opmerkt.",
       featured2Title: 'Beheers de prompt',
@@ -1769,6 +1753,9 @@
       levelWord: 'Paillasse',
       digcompNote: 'Traduction non officielle — version officielle JRC en attente.',
       updatedPrefix: 'Avancement mis à jour le',
+      journalValidated: 'a validé',
+      journalStarted: 'a commencé',
+      journalEmpty: 'Pas encore d\'activité enregistrée.',
       featured1Title: 'Chasseurs de biais',
       featured1Desc: "Pose la même question sur un sujet sensible à 3 chatbots IA différents. Compare les réponses et liste les biais repérés.",
       featured2Title: 'Maîtrise le prompt',
@@ -1804,6 +1791,9 @@
       levelWord: 'Bancone',
       digcompNote: 'Traduzione non ufficiale — versione ufficiale JRC in attesa.',
       updatedPrefix: 'Avanzamento aggiornato il',
+      journalValidated: 'ha validato',
+      journalStarted: 'ha iniziato',
+      journalEmpty: 'Ancora nessuna attività registrata.',
       featured1Title: 'Cacciatori di bias',
       featured1Desc: "Fai la stessa domanda su un tema sensibile a 3 chatbot IA diversi. Confronta le risposte ed elenca i bias che noti.",
       featured2Title: 'Padrone del prompt',
@@ -1839,6 +1829,9 @@
       levelWord: 'Bancada',
       digcompNote: 'Traducció no oficial — versió oficial JRC pendent.',
       updatedPrefix: 'Progrés actualitzat el',
+      journalValidated: 'ha validat',
+      journalStarted: 'ha començat',
+      journalEmpty: 'Encara no hi ha activitat registrada.',
       featured1Title: 'Caçadors de biaixos',
       featured1Desc: "Pregunta el mateix tema sensible a 3 chatbots d'IA diferents. Compara les respostes i llista els biaixos que detectes.",
       featured2Title: 'Domina el prompt',
@@ -3206,10 +3199,62 @@
     return total ? done / total : 0;
   }
 
+  /* derive each lab's % and current bench from the live progress data,
+     so empty labs read 0% instead of a hardcoded value */
+  function teamStats(teamId) {
+    let done = 0, total = 0, deepestDone = 0;
+    phases.forEach((phase, pi) => {
+      phase.nodes.forEach(n => {
+        total++;
+        if (n.teams[teamId] === 'done') {
+          done++;
+          if (pi + 1 > deepestDone) deepestDone = pi + 1;
+        }
+      });
+    });
+    return { done, total, xp: total ? Math.round(done / total * 100) : 0, level: deepestDone };
+  }
+
+  /* lab journal (carnet de labo) — entries come from progress.json so they
+     stay in sync with what each lab has actually done */
+  let labJournal = [];
+  function renderJournal() {
+    const el = document.getElementById('labJournal');
+    if (!el) return;
+    if (!labJournal.length) {
+      el.innerHTML = `<div class="activity-empty">${tr('journalEmpty')}</div>`;
+      return;
+    }
+    const bySlug = {};
+    phases.forEach(phase => phase.nodes.forEach(n => { bySlug[slugifyTitle(n.title)] = n; }));
+    const teamById = {};
+    teams.forEach(t => { teamById[t.id] = t; });
+    el.innerHTML = labJournal.map(entry => {
+      const t = teamById[entry.team];
+      const node = bySlug[entry.skill];
+      if (!t || !node) return '';
+      const verb = entry.status === 'in-progress' ? tr('journalStarted') : tr('journalValidated');
+      const color = teamColorVar(entry.team);
+      const note = entry.note ? `<div class="activity-time">${entry.note}</div>` : '';
+      return `
+        <div class="activity-item">
+          <div class="activity-dot" style="color: ${color}; background: ${color}"></div>
+          <div>
+            <div class="activity-text"><strong>${t.short}</strong> ${verb} <strong>${loc(node.title)}</strong></div>
+            ${note}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
   function renderTeams(activeView) {
     const grid = document.getElementById('teamsGrid');
     grid.innerHTML = teams.map(t => {
       const isActive = activeView === `team-${t.id}`;
+      const stats = teamStats(t.id);
+      const tagline = stats.level > 0
+        ? `${tr('currentlyExploring')} ${stats.level}`
+        : tr('notStarted');
       const badgesHtml = phases.map((phase, pi) => {
         const progress = teamWorldProgress(t.id, pi);
         const ok = progress >= WORLD_THRESHOLD;
@@ -3225,11 +3270,11 @@
             <div class="team-avatar"><span class="ta-icon">${t.avatar}</span></div>
             <div>
               <div class="team-name">${t.name}</div>
-              <div class="team-tagline">${tr('currentlyExploring')} ${t.level}</div>
+              <div class="team-tagline">${tagline}</div>
             </div>
           </div>
-          <div class="xp-bar"><div class="xp-fill" style="width: ${t.xp}%"></div></div>
-          <div class="xp-text"><span>${tr('skillsAcquired')}</span><strong>${t.xp}%</strong></div>
+          <div class="xp-bar"><div class="xp-fill" style="width: ${stats.xp}%"></div></div>
+          <div class="xp-text"><span>${tr('skillsAcquired')}</span><strong>${stats.xp}%</strong></div>
           <div class="team-badges">${badgesHtml}</div>
         </div>
       `;
@@ -3572,6 +3617,7 @@
     renderTeams(teamView);
     renderMain();
     renderFeatured();
+    renderJournal();
     if (typeof renderUpdatedBadge === 'function') renderUpdatedBadge();
   }
   document.querySelectorAll('#langSwitcher button').forEach(btn => {
@@ -3651,8 +3697,10 @@
         progressDate = data.lastUpdated;
         renderUpdatedBadge();
       }
+      if (Array.isArray(data.journal)) labJournal = data.journal;
       renderTeams(teamView);
       renderMain();
+      renderJournal();
     })
     .catch(err => {
       console.warn('Live progress.json unavailable — using inline fallback.', err);
