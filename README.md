@@ -72,7 +72,11 @@ Add a line at the top after each session; remove old ones to keep the feed short
 - **`index.html`** — the prototype (single self-contained HTML/JS/CSS file)
 - **`progress.json`** — live status of each lab against each of the 68 skills
 - **`source/AI-Skill-Tree-source.md`** — original DigComp 3.0 source from which the 68 skills are drawn
-- **`yal_logo.png`** + **`eu_co-funded.png`** — branding assets used in the page
+- **`cornicello.svg`** — the lucky-charm icon, kept as a standalone file and referenced by the page
+- **`eu_co-funded.png`** + **`eu_co-funded_fr.png`** — EU funding logo, English and French versions
+
+The printable French lab-bench sheets that used to live here have moved to the
+deliverables repository, under `Paillasses/FR/`.
 
 ## Features
 - 6 worlds mapped to the YouthAI Lab 6-phase approach (Observe → Hypothesize → Build → Deploy → Reflect → Share)
