@@ -440,13 +440,17 @@
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 16px;
   }
-  .ta-icon .cornicello-svg { width: 38px; height: 38px; }
+  /* block, not inline: as an inline image it sat on the text baseline and rode
+     high in the frame while the other labs use emoji glyphs */
+  .ta-icon .cornicello-svg { display: block; width: 38px; height: 38px; }
   .modal-team-avatar .cornicello-svg { width: 26px; height: 26px; vertical-align: middle; }
   .vt-icon .cornicello-svg { vertical-align: text-bottom; }
 
   .team-avatar {
     font-size: 28px;
     width: 52px; height: 52px;
+    /* a long lab name must not squeeze the frame out of square */
+    flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     background: var(--bg-2);
     border-radius: 10px;
