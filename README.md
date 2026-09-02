@@ -68,10 +68,17 @@ The sidebar "Recent activity" feed is driven by the `journal` array in
 
 Add a line at the top after each session. There is no need to remove old ones:
 the sidebar journal is capped to the height of the card next to it and scrolls,
-and the whole log stays reachable through the "Open the full journal" button.
+and the whole log has its own page at `journal.html`, linked from the "Open the
+full journal" button.
 
 ## What's inside
 - **`index.html`** — the prototype (single self-contained HTML/JS/CSS file)
+- **`journal.html`** — the full lab journal, as its own page
+- **`journal-data.json`** — labs, skill titles and interface strings the journal
+  page needs, **generated** from `index.html`. After renaming a lab, retitling a
+  skill or touching a translation, regenerate it with
+  `node tools/build-journal-data.js` (otherwise the journal page keeps showing
+  the old wording)
 - **`progress.json`** — live status of each lab against each of the 68 skills
 - **`source/AI-Skill-Tree-source.md`** — original DigComp 3.0 source from which the 68 skills are drawn
 - **`cornicello.svg`** — the lucky-charm icon, kept as a standalone file and referenced by the page

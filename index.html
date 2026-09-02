@@ -823,6 +823,9 @@
   .journal-open {
     margin-top: 12px;
     width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
     padding: 10px 14px;
     background: var(--bg-3);
     color: var(--text);
@@ -843,18 +846,6 @@
   .journal-open:active {
     transform: translate(2px, 2px);
     box-shadow: 1px 1px 0 var(--yal-yellow), 1px 1px 0 1px var(--text);
-  }
-  .journal-full-title {
-    font-family: 'Ambiguity Inline', 'Bungee Inline', 'Outfit', sans-serif;
-    font-size: 20px;
-    color: var(--primary-dark);
-    margin-bottom: 6px;
-    padding-right: 40px;
-  }
-  .journal-full-sub {
-    font-size: 12px; color: var(--text-soft);
-    font-weight: 500; font-style: italic;
-    margin-bottom: 16px;
   }
   .legend-tip {
     margin-top: 14px;
@@ -1205,7 +1196,7 @@
     <div class="sidebar">
       <h3 data-i18n="recentActivity">Recent activity</h3>
       <div id="labJournal"></div>
-      <button class="journal-open" id="journalOpen" data-i18n="openFullJournal">📖 Open the full journal</button>
+      <a class="journal-open" id="journalOpen" href="journal.html" data-i18n="openFullJournal">📖 Open the full journal</a>
       <div class="legend-tip" data-i18n="legendTip">💡 Click any quest for the official DigComp 3.0 description</div>
     </div>
     <button class="back-to-top" id="backToTop" data-i18n="backToTop">↑ Back to top</button>
@@ -1252,16 +1243,6 @@
       <h3 data-i18n="teamStatus">Team status</h3>
       <div class="modal-teams" id="modalTeams"></div>
     </div>
-  </div>
-</div>
-
-<!-- ====== FULL JOURNAL MODAL ====== -->
-<div class="modal-overlay" id="journalOverlay">
-  <div class="modal-card" id="journalCard">
-    <button class="modal-close" id="journalClose" aria-label="Close">×</button>
-    <div class="journal-full-title" id="journalFullTitle">Lab journal</div>
-    <div class="journal-full-sub" id="journalFullSub"></div>
-    <div id="journalFullList"></div>
   </div>
 </div>
 
@@ -1758,6 +1739,8 @@
       openFullJournal: '📖 Open the full journal',
       fullJournalTitle: 'Lab journal',
       fullJournalSub: 'Every step logged by the four labs, most recent first.',
+      backToTree: '← Back to the skill tree',
+      journalEntriesWord: 'entries',
       legendTip: '💡 Click any skill for the official DigComp 3.0 description',
       featuredTitle: '📌 Featured skills',
       featuredSub: 'Try these skills with your group — no AI background needed.',
@@ -1799,6 +1782,8 @@
       openFullJournal: '📖 Open het volledige labdagboek',
       fullJournalTitle: 'Labdagboek',
       fullJournalSub: 'Alle stappen die de vier labs hebben genoteerd, nieuwste eerst.',
+      backToTree: '← Terug naar de vaardighedenboom',
+      journalEntriesWord: 'vermeldingen',
       legendTip: '💡 Klik op een vaardigheid voor de officiële DigComp 3.0-beschrijving',
       featuredTitle: '📌 Uitgelichte vaardigheden',
       featuredSub: 'Probeer deze vaardigheden met je groep — geen AI-kennis nodig.',
@@ -1840,6 +1825,8 @@
       openFullJournal: '📖 Ouvrir tout le carnet',
       fullJournalTitle: 'Carnet de labo',
       fullJournalSub: 'Toutes les étapes consignées par les quatre labos, de la plus récente à la plus ancienne.',
+      backToTree: "← Retour à l'arbre de compétences",
+      journalEntriesWord: 'entrées',
       legendTip: '💡 Clique sur une compétence pour voir la description officielle DigComp 3.0',
       featuredTitle: '📌 Compétences en vedette',
       featuredSub: 'Essaie ces compétences avec ton groupe — pas besoin de connaître l’IA.',
@@ -1881,6 +1868,8 @@
       openFullJournal: '📖 Apri tutto il diario',
       fullJournalTitle: 'Diario di laboratorio',
       fullJournalSub: 'Tutte le tappe registrate dai quattro laboratori, dalla più recente alla più antica.',
+      backToTree: "← Torna all'albero delle competenze",
+      journalEntriesWord: 'voci',
       legendTip: '💡 Clicca una competenza per la descrizione ufficiale DigComp 3.0',
       featuredTitle: '📌 Competenze in evidenza',
       featuredSub: 'Prova queste competenze con il tuo gruppo — non servono conoscenze di IA.',
@@ -1922,6 +1911,8 @@
       openFullJournal: '📖 Obre tot el diari',
       fullJournalTitle: 'Diari de laboratori',
       fullJournalSub: 'Totes les etapes registrades pels quatre laboratoris, de la més recent a la més antiga.',
+      backToTree: "← Torna a l'arbre de competències",
+      journalEntriesWord: 'entrades',
       legendTip: '💡 Clica una competència per veure la descripció oficial DigComp 3.0',
       featuredTitle: '📌 Competències destacades',
       featuredSub: 'Prova aquestes competències amb el teu grup — no cal saber d’IA.',
@@ -3361,23 +3352,8 @@
     if (el) el.innerHTML = journalHTML();
   }
 
-  /* the sidebar journal is capped to the height of the card next to it, so the
-     whole log lives in its own window */
-  const journalOverlay = document.getElementById('journalOverlay');
-  function openFullJournal() {
-    document.getElementById('journalFullTitle').textContent = tr('fullJournalTitle');
-    document.getElementById('journalFullSub').textContent = tr('fullJournalSub');
-    document.getElementById('journalFullList').innerHTML = journalHTML();
-    journalOverlay.classList.add('open');
-  }
-  function closeFullJournal() {
-    journalOverlay.classList.remove('open');
-  }
-  document.getElementById('journalOpen').addEventListener('click', openFullJournal);
-  document.getElementById('journalClose').addEventListener('click', closeFullJournal);
-  journalOverlay.addEventListener('click', (e) => {
-    if (e.target === journalOverlay) closeFullJournal();
-  });
+  /* The sidebar journal is capped to the height of the card next to it; the
+     whole log lives on journal.html, linked from the button underneath. */
 
   function renderTeams(activeView) {
     const grid = document.getElementById('teamsGrid');
@@ -3703,9 +3679,7 @@
     if (e.target === modalOverlay) closeModal();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    closeModal();
-    closeFullJournal();
+    if (e.key === 'Escape') closeModal();
   });
 
   /* =========================================================

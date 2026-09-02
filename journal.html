@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youth AI Lab · Lab journal</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,8 62,38 94,40 68,60 76,92 50,72 24,92 32,60 6,40 38,38' fill='%23f9c724' stroke='%23f37030' stroke-width='5' stroke-linejoin='round'/%3E%3Ccircle cx='38' cy='42' r='6' fill='white' opacity='0.85'/%3E%3Ccircle cx='62' cy='52' r='3' fill='white' opacity='0.7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Emoji:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     YouthAI Lab — Lab journal
+     Companion page to index.html: the full log, nothing else.
+     Labs, skill titles and interface strings come from
+     journal-data.json (generated from index.html).
+     ========================================================= */
+
+  :root {
+    --yal-green: #7ed957;
+    --yal-pink: #fa89d2;
+    --yal-yellow: #f9c724;
+    --yal-orange: #f37030;
+    --yal-blue: #38b6ff;
+
+    --bg-2: #ffffff;
+    --bg-3: #fffaef;
+    --text: #2a2147;
+    --text-dim: #6a5e8a;
+    --text-soft: #9a8eb5;
+    --border: #f0e1f3;
+    --page-bg: #0d1633;
+
+    --team-1: var(--yal-yellow);
+    --team-2: var(--yal-green);
+    --team-3: var(--yal-pink);
+    --team-4: var(--yal-blue);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Ambiguity', 'Outfit', 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--page-bg);
+    background-image:
+      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.18'%3E%3Cpath d='M0 0h280M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M0 0v280M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 280px 280px;
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 64px;
+    line-height: 1.5;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  .header {
+    background: var(--bg-2);
+    border: 3px solid var(--yal-green);
+    border-radius: 28px 32px 30px 26px;
+    box-shadow: 0 5px 0 var(--yal-green), 0 8px 26px rgba(0, 0, 0, 0.3);
+    padding: 22px 28px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .title {
+    font-family: 'Ambiguity Inline', 'Bungee Inline', cursive;
+    font-size: 30px;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    font-size: 13px; color: var(--text-dim);
+    margin-top: 6px; max-width: 46ch;
+  }
+  .updated { font-size: 12px; color: var(--text-soft); margin-top: 8px; }
+
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .lang-switch {
+    display: flex; gap: 4px;
+    background: var(--bg-3);
+    border: 2px solid var(--yal-blue);
+    border-radius: 16px;
+    padding: 4px;
+  }
+  .lang-switch button {
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; line-height: 1;
+    padding: 5px 7px; border-radius: 11px;
+    opacity: 0.45; transition: all 0.15s;
+  }
+  .lang-switch button:hover { opacity: 0.8; }
+  .lang-switch button.active { opacity: 1; background: var(--yal-blue); }
+
+  .back-link {
+    display: inline-block;
+    padding: 10px 18px;
+    background: var(--bg-2);
+    color: var(--text);
+    text-decoration: none;
+    border: 3px solid var(--text);
+    border-radius: 18px;
+    font-size: 13px; font-weight: 700;
+    box-shadow: 4px 4px 0 var(--yal-pink), 4px 4px 0 1px var(--text);
+    transition: transform 0.15s, box-shadow 0.15s;
+    white-space: nowrap;
+  }
+  .back-link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--yal-pink), 6px 6px 0 1px var(--text);
+  }
+
+  .log {
+    background: var(--bg-2);
+    border: 3px solid var(--yal-yellow);
+    border-radius: 26px;
+    box-shadow: 0 5px 0 var(--yal-yellow), 0 0 26px rgba(249, 199, 36, 0.28);
+    padding: 26px 30px;
+  }
+  .log-count {
+    font-size: 12px; color: var(--text-soft);
+    font-style: italic; margin-bottom: 18px;
+  }
+
+  .entry {
+    display: flex; gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .entry:last-child { border-bottom: none; padding-bottom: 4px; }
+  .entry-avatar {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: var(--bg-3);
+    border: 3px solid var(--entry-color);
+    border-radius: 14px;
+    box-shadow: 3px 3px 0 var(--entry-color);
+  }
+  .entry-avatar img { width: 24px; height: 24px; }
+  .entry-body { flex: 1; min-width: 0; }
+  .entry-line { font-size: 15px; color: var(--text-dim); }
+  .entry-line strong { color: var(--text); font-weight: 700; }
+  .entry-lab { color: var(--entry-color-dark, var(--text)); }
+  .entry-note { font-size: 12px; color: var(--text-soft); margin-top: 3px; }
+  .entry-empty { font-size: 14px; color: var(--text-soft); font-style: italic; }
+
+  .site-footer {
+    margin-top: 24px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    line-height: 1.6;
+  }
+  .site-footer a { color: rgba(255, 255, 255, 0.8); }
+
+  @media (max-width: 1000px) {
+    body { padding: 16px; }
+    .header { flex-direction: column; }
+    .header-right { align-items: flex-start; }
+    .log { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div>
+      <div class="title" id="title">Lab journal</div>
+      <div class="subtitle" id="subtitle"></div>
+      <div class="updated" id="updated"></div>
+    </div>
+    <div class="header-right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="en" title="English">🇬🇧</button>
+        <button data-lang="fr" title="Français">🇫🇷</button>
+        <button data-lang="nl" title="Nederlands">🇧🇪</button>
+        <button data-lang="it" title="Italiano">🇮🇹</button>
+        <button data-lang="ca" title="Català">🇪🇸</button>
+      </div>
+      <a class="back-link" id="backLink" href="index.html">← Back to the skill tree</a>
+    </div>
+  </div>
+
+  <div class="log">
+    <div class="log-count" id="logCount"></div>
+    <div id="entries"></div>
+  </div>
+
+  <footer class="site-footer">
+    <a href="https://www.youth-ai-lab.eu/" target="_blank" rel="noopener">www.youth-ai-lab.eu</a> · Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Education and Culture Executive Agency (EACEA). Neither the European Union nor the granting authority can be held responsible for them.
+  </footer>
+
+</div>
+
+<script>
+  const LANGS = ['en', 'fr', 'nl', 'it', 'ca'];
+  let currentLang = (() => {
+    const saved = localStorage.getItem('yal_lang');
+    if (saved && LANGS.includes(saved)) return saved;
+    const browser = (navigator.language || 'en').slice(0, 2);
+    return LANGS.includes(browser) ? browser : 'en';
+  })();
+
+  let data = null;      /* journal-data.json — labs, skill titles, strings */
+  let progress = null;  /* progress.json — the log itself */
+
+  function tr(key) {
+    const s = data && data.strings;
+    return (s && s[currentLang] && s[currentLang][key]) || (s && s.en && s.en[key]) || '';
+  }
+
+  function skillTitle(slug) {
+    const t = data.skills[slug];
+    return t ? (t[currentLang] || t.en) : slug;
+  }
+
+  function render() {
+    if (!data || !progress) return;
+    const entries = Array.isArray(progress.journal) ? progress.journal : [];
+    const teamById = {};
+    data.teams.forEach(t => { teamById[t.id] = t; });
+
+    document.documentElement.lang = currentLang;
+    document.getElementById('title').textContent = tr('fullJournalTitle');
+    document.getElementById('subtitle').textContent = tr('fullJournalSub');
+    document.getElementById('backLink').textContent = tr('backToTree');
+    document.getElementById('updated').textContent = progress.lastUpdated
+      ? `${tr('updatedPrefix')} ${formatDate(progress.lastUpdated)}` : '';
+    document.getElementById('logCount').textContent =
+      `${entries.length} ${tr('journalEntriesWord')}`;
+
+    document.querySelectorAll('#langSwitch button').forEach(b =>
+      b.classList.toggle('active', b.dataset.lang === currentLang));
+
+    const el = document.getElementById('entries');
+    if (!entries.length) {
+      el.innerHTML = `<div class="entry-empty">${tr('journalEmpty')}</div>`;
+      return;
+    }
+    el.innerHTML = entries.map(entry => {
+      const t = teamById[entry.team];
+      if (!t) return '';
+      const verb = entry.status === 'in-progress' ? tr('journalStarted') : tr('journalValidated');
+      return `
+        <div class="entry" style="--entry-color: var(--team-${t.id})">
+          <div class="entry-avatar">${t.avatar}</div>
+          <div class="entry-body">
+            <div class="entry-line"><strong>${t.short}</strong> ${verb} <strong>${skillTitle(entry.skill)}</strong></div>
+            ${entry.note ? `<div class="entry-note">${entry.note}</div>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  /* same stamp as the header badge on the tree page */
+  function formatDate(iso) {
+    const d = new Date(iso + 'T00:00:00Z');
+    if (isNaN(d)) return iso;
+    return new Intl.DateTimeFormat(currentLang, {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }).format(d);
+  }
+
+  document.getElementById('langSwitch').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('yal_lang', currentLang);
+    render();
+  });
+
+  Promise.all([
+    fetch('journal-data.json', { cache: 'no-store' }).then(r => r.json()),
+    fetch('progress.json', { cache: 'no-store' }).then(r => r.json()),
+  ]).then(([d, p]) => {
+    data = d; progress = p;
+    render();
+  }).catch(err => {
+    console.error('Journal data unavailable', err);
+    document.getElementById('entries').innerHTML =
+      '<div class="entry-empty">The journal needs to be served over http — run a local server or open the published site.</div>';
+  });
+</script>
+</body>
+</html>
