@@ -69,7 +69,9 @@
     transition: background-color 0.5s ease;
     color: var(--text);
     min-height: 100vh;
-    padding: 32px 24px;
+    /* side padding is what gives the page air on a laptop screen: below ~1376px
+       the container stops centring and this is the only margin left */
+    padding: 32px 64px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-weight: 500;
@@ -275,7 +277,7 @@
   }
   .island-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px 24px;
     position: relative; z-index: 1;
     padding-top: 8px;
@@ -519,6 +521,9 @@
     background: transparent;
     padding: 0;
     min-height: 700px;
+    /* without this the column refuses to shrink below its content and the
+       sidebar gets pushed off the right edge on narrow laptops */
+    min-width: 0;
   }
   /* in map view, the world-map element provides its own styling — strip the wrapper */
   .skill-tree-wrapper.is-map-view {
@@ -739,10 +744,18 @@
   .sidebar-stack {
     display: flex;
     flex-direction: column;
-    gap: 14px;
     position: sticky;
     top: 24px;
     height: fit-content;
+    max-height: calc(100vh - 48px);
+    min-height: 0;
+  }
+  .sidebar-fill {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
   }
   .sidebar {
     background: var(--bg-2);
@@ -750,10 +763,30 @@
     border-radius: 22px;
     padding: 18px;
     box-shadow: 0 5px 0 var(--yal-yellow), 0 0 22px rgba(249, 199, 36, 0.3);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
   }
-  /* in map view, the stack still sticks but the inner sidebar doesn't stretch */
+  /* In map view the sidebar is pinned to the height of the bench-map card next
+     to it: the stack is only a positioning box, its content is taken out of the
+     flow so it cannot stretch the grid row, and the journal scrolls inside. */
   .skill-tree-wrapper.is-map-view ~ .sidebar-stack {
-    position: static;
+    position: relative;
+    display: block;
+    height: auto;
+    max-height: none;
+  }
+  .skill-tree-wrapper.is-map-view ~ .sidebar-stack .sidebar-fill {
+    position: absolute;
+    inset: 0;
+  }
+  /* the journal is the only part that flexes and scrolls */
+  #labJournal {
+    flex: 1;
+    min-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
   .sidebar h3 {
     font-family: 'Bungee Inline', 'Outfit', sans-serif;
@@ -787,8 +820,45 @@
     font-weight: 500; font-style: italic;
     padding: 4px 0;
   }
+  .journal-open {
+    margin-top: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-3);
+    color: var(--text);
+    border: 2px solid var(--text);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 3px 3px 0 var(--yal-yellow), 3px 3px 0 1px var(--text);
+  }
+  .journal-open:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--yal-yellow), 5px 5px 0 1px var(--text);
+  }
+  .journal-open:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--yal-yellow), 1px 1px 0 1px var(--text);
+  }
+  .journal-full-title {
+    font-family: 'Ambiguity Inline', 'Bungee Inline', 'Outfit', sans-serif;
+    font-size: 20px;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+    padding-right: 40px;
+  }
+  .journal-full-sub {
+    font-size: 12px; color: var(--text-soft);
+    font-weight: 500; font-style: italic;
+    margin-bottom: 16px;
+  }
   .legend-tip {
     margin-top: 14px;
+    flex-shrink: 0;
     padding: 12px 14px;
     background: var(--accent-soft);
     color: var(--text);
@@ -1057,10 +1127,19 @@
   }
 
   /* ================== RESPONSIVE ================== */
-  @media (max-width: 900px) {
+  /* below ~1000px the two-column layout squeezes the bench cards too hard,
+     so the page stacks instead */
+  @media (max-width: 1000px) {
     body { padding: 16px; }
     .teams-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .main-grid { grid-template-columns: 1fr; }
+    /* single column: nothing to align the sidebar on, it just follows the flow */
+    .sidebar-stack,
+    .skill-tree-wrapper.is-map-view ~ .sidebar-stack {
+      position: static; display: flex; max-height: none;
+    }
+    .skill-tree-wrapper.is-map-view ~ .sidebar-stack .sidebar-fill { position: static; }
+    #labJournal { max-height: 340px; }
     .nodes-row.cols-4 { grid-template-columns: repeat(2, 1fr); }
     .nodes-row.cols-3 { grid-template-columns: repeat(2, 1fr); }
     .modal-teams { grid-template-columns: 1fr; }
@@ -1122,12 +1201,15 @@
     <div class="skill-tree-wrapper" id="skillTree"></div>
 
     <div class="sidebar-stack">
+    <div class="sidebar-fill">
     <div class="sidebar">
       <h3 data-i18n="recentActivity">Recent activity</h3>
       <div id="labJournal"></div>
+      <button class="journal-open" id="journalOpen" data-i18n="openFullJournal">📖 Open the full journal</button>
       <div class="legend-tip" data-i18n="legendTip">💡 Click any quest for the official DigComp 3.0 description</div>
     </div>
     <button class="back-to-top" id="backToTop" data-i18n="backToTop">↑ Back to top</button>
+    </div>
     </div>
 
   </div>
@@ -1170,6 +1252,16 @@
       <h3 data-i18n="teamStatus">Team status</h3>
       <div class="modal-teams" id="modalTeams"></div>
     </div>
+  </div>
+</div>
+
+<!-- ====== FULL JOURNAL MODAL ====== -->
+<div class="modal-overlay" id="journalOverlay">
+  <div class="modal-card" id="journalCard">
+    <button class="modal-close" id="journalClose" aria-label="Close">×</button>
+    <div class="journal-full-title" id="journalFullTitle">Lab journal</div>
+    <div class="journal-full-sub" id="journalFullSub"></div>
+    <div id="journalFullList"></div>
   </div>
 </div>
 
@@ -1663,6 +1755,9 @@
       allTeams: 'All labs',
       chooseYourWorld: '✦  Step into the lab: Choose a bench  ✦',
       recentActivity: 'Lab journal',
+      openFullJournal: '📖 Open the full journal',
+      fullJournalTitle: 'Lab journal',
+      fullJournalSub: 'Every step logged by the four labs, most recent first.',
       legendTip: '💡 Click any skill for the official DigComp 3.0 description',
       featuredTitle: '📌 Featured skills',
       featuredSub: 'Try these skills with your group — no AI background needed.',
@@ -1701,6 +1796,9 @@
       allTeams: 'Alle labs',
       chooseYourWorld: '✦  Stap het lab binnen: Kies een werkbank  ✦',
       recentActivity: 'Labdagboek',
+      openFullJournal: '📖 Open het volledige labdagboek',
+      fullJournalTitle: 'Labdagboek',
+      fullJournalSub: 'Alle stappen die de vier labs hebben genoteerd, nieuwste eerst.',
       legendTip: '💡 Klik op een vaardigheid voor de officiële DigComp 3.0-beschrijving',
       featuredTitle: '📌 Uitgelichte vaardigheden',
       featuredSub: 'Probeer deze vaardigheden met je groep — geen AI-kennis nodig.',
@@ -1739,6 +1837,9 @@
       allTeams: 'Tous les labos',
       chooseYourWorld: '✦  Entre au labo : Choisis une paillasse  ✦',
       recentActivity: 'Carnet de labo',
+      openFullJournal: '📖 Ouvrir tout le carnet',
+      fullJournalTitle: 'Carnet de labo',
+      fullJournalSub: 'Toutes les étapes consignées par les quatre labos, de la plus récente à la plus ancienne.',
       legendTip: '💡 Clique sur une compétence pour voir la description officielle DigComp 3.0',
       featuredTitle: '📌 Compétences en vedette',
       featuredSub: 'Essaie ces compétences avec ton groupe — pas besoin de connaître l’IA.',
@@ -1777,6 +1878,9 @@
       allTeams: 'Tutti i laboratori',
       chooseYourWorld: '✦  Entra in laboratorio: Scegli un bancone  ✦',
       recentActivity: 'Diario di laboratorio',
+      openFullJournal: '📖 Apri tutto il diario',
+      fullJournalTitle: 'Diario di laboratorio',
+      fullJournalSub: 'Tutte le tappe registrate dai quattro laboratori, dalla più recente alla più antica.',
       legendTip: '💡 Clicca una competenza per la descrizione ufficiale DigComp 3.0',
       featuredTitle: '📌 Competenze in evidenza',
       featuredSub: 'Prova queste competenze con il tuo gruppo — non servono conoscenze di IA.',
@@ -1815,6 +1919,9 @@
       allTeams: 'Tots els labs',
       chooseYourWorld: '✦  Entra al laboratori: Tria una bancada  ✦',
       recentActivity: 'Diari de laboratori',
+      openFullJournal: '📖 Obre tot el diari',
+      fullJournalTitle: 'Diari de laboratori',
+      fullJournalSub: 'Totes les etapes registrades pels quatre laboratoris, de la més recent a la més antiga.',
       legendTip: '💡 Clica una competència per veure la descripció oficial DigComp 3.0',
       featuredTitle: '📌 Competències destacades',
       featuredSub: 'Prova aquestes competències amb el teu grup — no cal saber d’IA.',
@@ -3222,18 +3329,16 @@
   /* lab journal (carnet de labo) — entries come from progress.json so they
      stay in sync with what each lab has actually done */
   let labJournal = [];
-  function renderJournal() {
-    const el = document.getElementById('labJournal');
-    if (!el) return;
+
+  function journalHTML() {
     if (!labJournal.length) {
-      el.innerHTML = `<div class="activity-empty">${tr('journalEmpty')}</div>`;
-      return;
+      return `<div class="activity-empty">${tr('journalEmpty')}</div>`;
     }
     const bySlug = {};
     phases.forEach(phase => phase.nodes.forEach(n => { bySlug[slugifyTitle(n.title)] = n; }));
     const teamById = {};
     teams.forEach(t => { teamById[t.id] = t; });
-    el.innerHTML = labJournal.map(entry => {
+    return labJournal.map(entry => {
       const t = teamById[entry.team];
       const node = bySlug[entry.skill];
       if (!t || !node) return '';
@@ -3250,6 +3355,29 @@
         </div>`;
     }).join('');
   }
+
+  function renderJournal() {
+    const el = document.getElementById('labJournal');
+    if (el) el.innerHTML = journalHTML();
+  }
+
+  /* the sidebar journal is capped to the height of the card next to it, so the
+     whole log lives in its own window */
+  const journalOverlay = document.getElementById('journalOverlay');
+  function openFullJournal() {
+    document.getElementById('journalFullTitle').textContent = tr('fullJournalTitle');
+    document.getElementById('journalFullSub').textContent = tr('fullJournalSub');
+    document.getElementById('journalFullList').innerHTML = journalHTML();
+    journalOverlay.classList.add('open');
+  }
+  function closeFullJournal() {
+    journalOverlay.classList.remove('open');
+  }
+  document.getElementById('journalOpen').addEventListener('click', openFullJournal);
+  document.getElementById('journalClose').addEventListener('click', closeFullJournal);
+  journalOverlay.addEventListener('click', (e) => {
+    if (e.target === journalOverlay) closeFullJournal();
+  });
 
   function renderTeams(activeView) {
     const grid = document.getElementById('teamsGrid');
@@ -3575,7 +3703,9 @@
     if (e.target === modalOverlay) closeModal();
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key !== 'Escape') return;
+    closeModal();
+    closeFullJournal();
   });
 
   /* =========================================================

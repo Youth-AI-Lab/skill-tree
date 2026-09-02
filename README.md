@@ -66,7 +66,9 @@ The sidebar "Recent activity" feed is driven by the `journal` array in
 - `status` — `"done"` ("validated") or `"in-progress"` ("started")
 - `note` — free text shown under the entry (session name and/or date)
 
-Add a line at the top after each session; remove old ones to keep the feed short.
+Add a line at the top after each session. There is no need to remove old ones:
+the sidebar journal is capped to the height of the card next to it and scrolls,
+and the whole log stays reachable through the "Open the full journal" button.
 
 ## What's inside
 - **`index.html`** — the prototype (single self-contained HTML/JS/CSS file)
