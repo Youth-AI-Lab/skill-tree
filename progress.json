@@ -431,6 +431,18 @@
     },
     {
       "team": 1,
+      "skill": "oversight-anchor",
+      "status": "done",
+      "note": "WikiYouthBot Intensive Week · La Rochelle · Jul 2026"
+    },
+    {
+      "team": 1,
+      "skill": "source-sniper",
+      "status": "done",
+      "note": "WikiYouthBot Intensive Week · La Rochelle · Jul 2026"
+    },
+    {
+      "team": 1,
       "skill": "sector-scanner",
       "status": "in-progress",
       "note": "French Robotic Cup · May 2026"
