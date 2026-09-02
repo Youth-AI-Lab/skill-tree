@@ -1,40 +1,40 @@
 {
-  "lastUpdated": "2026-05-28",
+  "lastUpdated": "2026-09-02",
   "labs": {
-    "1": "Pacman's Return",
-    "2": "Wolfpack",
-    "3": "LLUM",
+    "1": "Le retour des Pacman's",
+    "2": "Digitale Wolven",
+    "3": "Gorgs IA Studio",
     "4": "FARO"
   },
   "skills": {
     "spot-the-ai": {
       "1": "done",
-      "2": null,
-      "3": null,
+      "2": "done",
+      "3": "done",
       "4": "done"
     },
     "sort-the-real-ai": {
       "1": "done",
-      "2": null,
-      "3": null,
+      "2": "done",
+      "3": "done",
       "4": "done"
     },
     "hunt-for-ai-in-the-wild": {
       "1": "done",
-      "2": null,
-      "3": null,
+      "2": "done",
+      "3": "done",
       "4": "done"
     },
     "guard-your-data": {
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "truth-dispatcher": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "the-planet-cost": {
@@ -44,9 +44,9 @@
       "4": null
     },
     "detect-hidden-helpers": {
-      "1": "done",
+      "1": null,
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "wellbeing-watch": {
@@ -56,7 +56,7 @@
       "4": null
     },
     "mark-the-bots-work": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
       "4": null
@@ -64,13 +64,13 @@
     "human-in-the-loop": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "human-or-machine": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "search-engines-decoded": {
@@ -80,7 +80,7 @@
       "4": null
     },
     "spot-the-collaborator": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
       "4": null
@@ -98,45 +98,45 @@
       "4": null
     },
     "the-glass-box": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "the-human-pilot": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "trace-the-training": {
       "1": "done",
-      "2": null,
-      "3": null,
+      "2": "in-progress",
+      "3": "done",
       "4": "done"
     },
     "plausible-but-wrong": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "the-black-box": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
-      "3": null,
-      "4": "done"
+      "3": "done",
+      "4": null
     },
     "truth-detector": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "bias-hunters": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "test-the-bots": {
@@ -146,22 +146,22 @@
       "4": "done"
     },
     "tool-inspector": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "ethical-sidekick": {
       "1": null,
       "2": null,
-      "3": null,
-      "4": "in-progress"
+      "3": "done",
+      "4": null
     },
     "creators-compass": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "transparent-mode": {
       "1": null,
@@ -172,26 +172,26 @@
     "behind-the-curtain": {
       "1": "done",
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "source-sniper": {
-      "1": null,
-      "2": null,
-      "3": null,
-      "4": "in-progress"
-    },
-    "decode-machine-learning": {
       "1": "done",
       "2": null,
       "3": null,
+      "4": null
+    },
+    "decode-machine-learning": {
+      "1": null,
+      "2": null,
+      "3": "done",
       "4": "done"
     },
     "sector-scanner": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
-      "3": null,
-      "4": "in-progress"
+      "3": "done",
+      "4": null
     },
     "master-the-prompt": {
       "1": "done",
@@ -200,7 +200,7 @@
       "4": "done"
     },
     "create-with-ai": {
-      "1": "done",
+      "1": null,
       "2": null,
       "3": null,
       "4": "done"
@@ -208,13 +208,13 @@
     "training-data-trial": {
       "1": null,
       "2": null,
-      "3": null,
+      "3": "done",
       "4": null
     },
     "ml-decoder": {
-      "1": "done",
+      "1": null,
       "2": null,
-      "3": null,
+      "3": "done",
       "4": "done"
     },
     "cyber-shield": {
@@ -233,10 +233,10 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "creativity-compass": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
       "4": null
@@ -251,7 +251,7 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "deepfake-detective": {
       "1": null,
@@ -260,10 +260,10 @@
       "4": null
     },
     "prompt-architect": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "red-flag-radar": {
       "1": null,
@@ -275,7 +275,7 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "collab-auditor": {
       "1": null,
@@ -293,7 +293,7 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "id-ethics": {
       "1": null,
@@ -311,7 +311,7 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "humans-in-charge": {
       "1": null,
@@ -326,7 +326,7 @@
       "4": null
     },
     "ml-taxonomist": {
-      "1": "in-progress",
+      "1": null,
       "2": null,
       "3": null,
       "4": "done"
@@ -341,7 +341,7 @@
       "1": null,
       "2": null,
       "3": null,
-      "4": "in-progress"
+      "4": null
     },
     "build-ethics": {
       "1": null,
@@ -350,7 +350,7 @@
       "4": null
     },
     "oversight-anchor": {
-      "1": null,
+      "1": "done",
       "2": null,
       "3": null,
       "4": null
@@ -417,6 +417,18 @@
     }
   },
   "journal": [
+    {
+      "team": 2,
+      "skill": "trace-the-training",
+      "status": "in-progress",
+      "note": "micro:bit CreateAI · Create a Game Box · Aug 2026"
+    },
+    {
+      "team": 2,
+      "skill": "hunt-for-ai-in-the-wild",
+      "status": "done",
+      "note": "Image Recognition with mBot · Aug 2026"
+    },
     {
       "team": 1,
       "skill": "sector-scanner",
