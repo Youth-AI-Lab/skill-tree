@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skill Tree · social card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Source of og.png — the link preview card for Facebook, LinkedIn, X.
+     Render it at exactly 1200x630, see the command in ../README.md. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    background-color: #0d1633;
+    background-image:
+      url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-width='0.5' opacity='0.18'%3E%3Cpath d='M0 0h280M0 40h280M0 80h280M0 120h280M0 160h280M0 200h280M0 240h280'/%3E%3Cpath d='M0 0v280M40 0v280M80 0v280M120 0v280M160 0v280M200 0v280M240 0v280'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 280px 280px;
+    display: flex; align-items: center; justify-content: center;
+    color: #2a2147;
+  }
+  .card {
+    width: 1128px; height: 558px;
+    background: #ffffff;
+    border: 5px solid #7ed957;
+    border-radius: 34px;
+    box-shadow: 0 8px 0 #7ed957;
+    padding: 40px 48px 36px;
+    display: flex; flex-direction: column;
+  }
+  .brand {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 34px; letter-spacing: 1px;
+  }
+  .brand .ai { color: #7ed957; }
+  .title {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 74px; line-height: 1.05;
+    margin-top: 10px;
+  }
+  .subtitle {
+    font-size: 23px; font-weight: 600; color: #6a5e8a;
+    margin-top: 12px;
+  }
+  .benches {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    gap: 14px; margin-top: 28px;
+  }
+  .bench {
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    border-radius: 18px;
+    padding: 14px 8px 12px;
+    text-align: center;
+  }
+  .bench img { width: 68px; height: 68px; object-fit: contain; }
+  .bench-name {
+    margin-top: 10px;
+    font-size: 15px; font-weight: 700;
+    color: var(--dark);
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .tagline {
+    margin-top: 26px;
+    font-size: 21px; font-weight: 600; color: #2a2147;
+  }
+  .tagline strong { color: #f37030; }
+  .labs {
+    margin-top: auto;
+    display: flex; align-items: center; gap: 26px;
+    font-size: 17px; font-weight: 600; color: #6a5e8a;
+  }
+  .lab { display: flex; align-items: center; gap: 9px; }
+  .dot {
+    width: 15px; height: 15px; border-radius: 50%;
+    border: 3px solid #2a2147;
+  }
+  .url {
+    margin-left: auto;
+    font-size: 17px; font-weight: 700; color: #2a2147;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">YOUTH<span class="ai">AI</span> LAB</div>
+    <div class="title">AI Skill Tree</div>
+    <div class="subtitle">68 DigComp 3.0 skills · 6 benches · 4 youth labs · 5 languages</div>
+
+    <div class="benches">
+      <div class="bench" style="--bg: linear-gradient(135deg,#dff5d4,#c4e8ff); --accent:#7ed957; --dark:#3d7a1e">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Telescope/3D/telescope_3d.png" alt="">
+        <div class="bench-name">Observatory</div>
+      </div>
+      <div class="bench" style="--bg: linear-gradient(135deg,#fff3c4,#ffd9a8); --accent:#f9c724; --dark:#9a7c1e">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Light%20bulb/3D/light_bulb_3d.png" alt="">
+        <div class="bench-name">Hypothesis</div>
+      </div>
+      <div class="bench" style="--bg: linear-gradient(135deg,#ffe0c8,#ffc8a8); --accent:#f37030; --dark:#a83e15">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Hammer%20and%20wrench/3D/hammer_and_wrench_3d.png" alt="">
+        <div class="bench-name">Synthesis</div>
+      </div>
+      <div class="bench" style="--bg: linear-gradient(135deg,#d4ecff,#b8e0ff); --accent:#38b6ff; --dark:#1e3a8a">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Rocket/3D/rocket_3d.png" alt="">
+        <div class="bench-name">Experiment</div>
+      </div>
+      <div class="bench" style="--bg: linear-gradient(135deg,#ffdcef,#ffd0e3); --accent:#fa89d2; --dark:#9b2566">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Mirror/3D/mirror_3d.png" alt="">
+        <div class="bench-name">Analysis</div>
+      </div>
+      <div class="bench" style="--bg: linear-gradient(135deg,#ede0ff,#f5d4ff); --accent:#9d4edd; --dark:#5b2890">
+        <img src="https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/Megaphone/3D/megaphone_3d.png" alt="">
+        <div class="bench-name">Symposium</div>
+      </div>
+    </div>
+
+    <div class="tagline">Follow live what four youth labs learn about AI, one bench at a time.</div>
+
+    <div class="labs">
+      <div class="lab"><span class="dot" style="background:#f9c724"></span>Le retour des Pacman's</div>
+      <div class="lab"><span class="dot" style="background:#7ed957"></span>Digitale Wolven</div>
+      <div class="lab"><span class="dot" style="background:#fa89d2"></span>Gorgs IA Studio</div>
+      <div class="lab"><span class="dot" style="background:#38b6ff"></span>FARO</div>
+      <div class="url">youth-ai-lab.github.io/skill-tree</div>
+    </div>
+  </div>
+</body>
+</html>

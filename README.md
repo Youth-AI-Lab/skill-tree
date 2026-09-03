@@ -75,6 +75,18 @@ and the whole log stays reachable through the "Open the full journal" button.
 - **`progress.json`** — live status of each lab against each of the 68 skills
 - **`source/AI-Skill-Tree-source.md`** — original DigComp 3.0 source from which the 68 skills are drawn
 - **`cornicello.svg`** — the lucky-charm icon, kept as a standalone file and referenced by the page
+- **`og.png`** — the link preview shown when the site is shared on Facebook,
+  LinkedIn, X or WhatsApp. Built from `tools/og-card.html`; after editing that
+  card, re-render it with:
+
+  ```
+  google-chrome --headless=new --window-size=1200,630 --hide-scrollbars \
+    --screenshot=og.png --virtual-time-budget=8000 \
+    http://localhost:8000/tools/og-card.html
+  ```
+
+  Social networks cache previews: after replacing the image, refresh it in the
+  [Facebook sharing debugger](https://developers.facebook.com/tools/debug/).
 - **`eu_co-funded.png`** + **`eu_co-funded_fr.png`** — EU funding logo, English and French versions
 
 The printable French lab-bench sheets that used to live here have moved to the
